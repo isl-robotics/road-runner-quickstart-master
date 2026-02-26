@@ -71,7 +71,7 @@ public class Drive extends Init{
             }
             else {
                 power = -gamepad1.left_stick_y;
-                sideways = -gamepad1.left_stick_x;
+                sideways = gamepad1.left_stick_x;
                 direction = gamepad1.right_stick_x;
 
             }
