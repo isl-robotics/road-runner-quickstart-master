@@ -11,9 +11,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class EncoderTest extends Init {
     public static double dist = 0;
 
-    public static double kP = 0;
+    public static double kP = 0.04;
     public static double kI = 0;
-    public static double kD = 0;
+    public static double kD = 0.0015;
     public static int angle = 90;
 
     @Override

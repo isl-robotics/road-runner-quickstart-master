@@ -88,6 +88,11 @@ public class UniversalPID {
         }if(Math.abs(output) < minVal){
             output = Math.copySign(minVal, output);
         }
+        GlobalVars.telemetryGlobal.addData("P", error*kP);
+        GlobalVars.telemetryGlobal.addData("I", integralSum*kI);
+        GlobalVars.telemetryGlobal.addData("D", rawD);
+
+        GlobalVars.telemetryGlobal.addData("OUT", output);
 
         return output;
     }
