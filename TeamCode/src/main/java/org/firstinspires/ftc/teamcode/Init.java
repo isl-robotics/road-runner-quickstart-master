@@ -68,8 +68,8 @@ public abstract class Init extends LinearOpMode {
         pinpointComputer = hardwareMap.get(GoBildaPinpointDriver.class, "PinpointComputer");
         pinpointComputer.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
         pinpointComputer.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        pinpointComputer.setOffsets(-13.5,-37.7, DistanceUnit.CM);
-        pinpointComputer.resetPosAndIMU();
+        //pinpointComputer.setOffsets(-13.5,-37.7, DistanceUnit.CM);
+        //pinpointComputer.resetPosAndIMU();
 
         mecanumDrivetrainController = new MecanumDrivetrainController(mecanumDrivetrain, pinpointComputer);
 
@@ -139,5 +139,11 @@ public abstract class Init extends LinearOpMode {
             pause(.02);
             now= clock.seconds();
         }
+        gate.setPosition(0.4);
+        pause(0.2);
+        intakeMotor.setPower(-1);
+        pause(0.5);
+
+
     }
 }

@@ -17,8 +17,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Init;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.GlobalVars;
 
 @Config
 @Autonomous
@@ -29,12 +32,32 @@ public final class SplineTest extends LinearOpMode {
     }
     public class Intake {
         private DcMotor intake;
+        private Servo gate;
+        private DcMotorEx launcher;
 
         public Intake(HardwareMap hardwareMap) {
             intake = hardwareMap.get(DcMotor.class, "IntakeMotor");
             intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             intake.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+            gate = hardwareMap.get(Servo.class, "Gate");
+            launcher = hardwareMap.get(DcMotorEx.class, "LauncherMotor");
         }
+
+        public class Shoot implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                gate.setPosition(0.4);
+                intake.setPower(-1);
+                return false;
+            }
+        }
+        public Action shoot(){
+            return new Shoot();
+        }
+
         public class IntakeIn implements Action {
 
             @Override
@@ -67,30 +90,71 @@ public final class SplineTest extends LinearOpMode {
 
         TrajectoryActionBuilder traj1 = drive.actionBuilder(beginPose)
                 .strafeToLinearHeading(new Vector2d(50, -20), -Math.toRadians(160))
-                .waitSeconds(1)
-                .splineToLinearHeading(new Pose2d(mmToIn(900), -35,-Math.toRadians(90)), -Math.toRadians(90))
                 .waitSeconds(1);
 
         TrajectoryActionBuilder traj2 = traj1.endTrajectory().fresh()
+                .splineToLinearHeading(new Pose2d(mmToIn(900), -35,-Math.toRadians(90)), -Math.toRadians(90))
+                //.waitSeconds(1)
+                ;
+
+        TrajectoryActionBuilder traj3 = traj2.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(mmToIn(900),-65),new TranslationalVelConstraint(25))
+                .waitSeconds(0.5);
+
+        TrajectoryActionBuilder traj4 = traj3.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(50, -20), -Math.toRadians(160))
+                .waitSeconds(1);
+
+        TrajectoryActionBuilder traj5 = traj4.endTrajectory().fresh()
+                .splineToLinearHeading(new Pose2d(mmToIn(350), -35,-Math.toRadians(90)), -Math.toRadians(90))
+                //.waitSeconds(1)
+                ;
+
+        TrajectoryActionBuilder traj6 = traj5.endTrajectory().fresh()
+                .strafeToConstantHeading(new Vector2d(mmToIn(400),-65),new TranslationalVelConstraint(25))
+                .waitSeconds(0.5);
+
+        TrajectoryActionBuilder traj7 = traj6.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(50, -20), -Math.toRadians(160))
+                .waitSeconds(1);
+
+        TrajectoryActionBuilder traj8 = traj7.endTrajectory().fresh()
+                .strafeTo(new Vector2d(30, -20))
+                .waitSeconds(10);
+        TrajectoryActionBuilder traj9 = traj8.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(61, -14.5), Math.PI)
                 .waitSeconds(1);
 
         waitForStart();
 
+
+
         Actions.runBlocking(
                 new SequentialAction(
                         traj1.build(),
-                        intake.intakeIn(),
+                        //shoot
                         traj2.build(),
-                        intake.intakeOut()
+                        //intake.intakeIn(),
+                        traj3.build(),
+                        //intake.intakeOut(),
+                        traj4.build(),
+                        //shoot
+                        traj5.build(),
+                        //intake.intakeIn(),
+                        traj6.build(),
+                        //intake.intakeOut(),
+                        traj7.build(),
+                        //shoot
+                        traj8.build(),
+                        traj9.build()
+
                 )
         );
 
             /*
             Actions.runBlocking(
                 drive.actionBuilder(beginPose)
-                        .strafeToLinearHeading(new Vector2d(50, -20), -Math.toRadians(160))
-                        .waitSeconds(1)
+
                         .splineToLinearHeading(new Pose2d(mmToIn(300), -35,-Math.toRadians(90)), -Math.toRadians(90))
                         .strafeToConstantHeading(new Vector2d(mmToIn(300),-65),new TranslationalVelConstraint(25))
                         .waitSeconds(1)
