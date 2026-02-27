@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.util.Pair;
 import android.util.Size;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -12,6 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -126,6 +128,17 @@ public abstract class Init extends LinearOpMode {
         while( ((now-start)<seconds) && opModeIsActive() ){
             now = clock.seconds();
             try { Thread.sleep(5); } catch (InterruptedException e) {}
+        }
+    }
+
+    public Pair<Double, Boolean> alignToGoal(){
+        Pair<Double, Double> distAndBearing = aprilTagDetector.getGoalDistAndBearing();
+        if (distAndBearing != null) {
+            mecanumDrivetrain.rotate(Range.clip(goalAlignmentPID.compute(distAndBearing.second), -0.3, 0.3));
+            return new Pair<>(distAndBearing.second, goalAlignmentPID.isDone());
+        } else {
+            mecanumDrivetrain.rotate(0);
+            return null;
         }
     }
 
