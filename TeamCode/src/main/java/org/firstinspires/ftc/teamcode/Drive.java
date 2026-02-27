@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.utilities.GlobalVars;
 
 @Config
 @TeleOp
@@ -76,15 +77,11 @@ public class Drive extends Init{
 
             }
 
-            intake = -gamepad1.left_trigger;
+            intake = gamepad2.left_trigger-gamepad2.right_trigger;
 
             power = power * (1-gamepad1.right_trigger*0.8);
             direction = direction * (1-gamepad1.right_trigger*0.8);
             sideways = sideways * (1-gamepad1.right_trigger*0.8);
-
-            if (gamepad1.a){
-                intake = 1;
-            }
 
             Pair<Double, Double> goalDistAndBearing = aprilTagDetector.getGoalDistAndBearing();
 
@@ -138,13 +135,13 @@ public class Drive extends Init{
             }
 
             intakeMotor.setPower(intake);
-/*
-            if(gamepad2.bWasPressed()){
+
+            if(gamepad2.leftBumperWasPressed()){
                 if (goalDistAndBearing != null) {
                     goalAlignmentPID.reset(goalDistAndBearing.second);
                 }
             }
-*/
+
             //           else{
             /*
             mecanumDrivetrain.setPowers(
@@ -155,15 +152,25 @@ public class Drive extends Init{
             );
              */
 
-            if(gamepad1.right_stick_button) {
-                mecanumDrivetrain.setOrthoAbs(sideways, power, direction, pinpointComputer.getHeading(AngleUnit.DEGREES));
-            }else{
-                mecanumDrivetrain.setOrtho(sideways, power, direction);
+            if (gamepad2.left_bumper){
+                alignToGoal();
+            }else {
+                if (gamepad1.right_stick_button) {
+                    mecanumDrivetrain.setOrthoAbs(sideways, power, direction, pinpointComputer.getHeading(AngleUnit.DEGREES));
+                } else {
+                    mecanumDrivetrain.setOrtho(sideways, power, direction);
+                }
+            }
+
+            if (gamepad2.right_bumper && (goalDistAndBearing != null)){
+                launchAtDist(goalDistAndBearing.first);
+            } else {
+                launcherController.launcherMotor.setVelocity(GlobalVars.defaultLauncherSpeed);
             }
 
 //            }
 
-            if(gamepad1.b){
+            if(gamepad2.b){
                 gate.setPosition(servomax);
             }
             else {

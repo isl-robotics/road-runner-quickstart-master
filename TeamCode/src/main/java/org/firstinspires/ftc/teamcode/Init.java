@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.util.Pair;
 import android.util.Size;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -12,6 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -108,12 +110,14 @@ public abstract class Init extends LinearOpMode {
     }
 
     private void initImu(){
+        /*
         imu = hardwareMap.get(IMU.class, "imu");
 
         RevHubOrientationOnRobot imuOrientationNew = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.xyzOrientation(0,0,-90));
 
         imu.initialize(new IMU.Parameters(imuOrientationNew));
         imu.resetYaw();
+         */
     }
 
     public void setTeam(){
@@ -129,15 +133,28 @@ public abstract class Init extends LinearOpMode {
         }
     }
 
+    public Pair<Double, Boolean> alignToGoal(){
+        Pair<Double, Double> distAndBearing = aprilTagDetector.getGoalDistAndBearing();
+        if (distAndBearing != null) {
+            mecanumDrivetrain.rotate(Range.clip(goalAlignmentPID.compute(distAndBearing.second), -0.3, 0.3));
+            return new Pair<>(distAndBearing.second, goalAlignmentPID.isDone());
+        } else {
+            mecanumDrivetrain.rotate(0);
+            return null;
+        }
+    }
+
     public void launchAtDist(double tagDist){
         double speed = (-3.35547*0.00001)*Math.pow(tagDist, 3)-0.03097873*Math.pow(tagDist, 2)+-7.804141082*tagDist+2146.744336;
         speed = Math.round(speed/20)*20;  // Round to nearest 20
         launcherController.launcherMotor.setVelocity(speed);
+        /*
         double start = clock.seconds();
         double now = clock.seconds();
         while((Math.abs(launcherController.launcherMotor.getVelocity()-speed)>30) && opModeIsActive() && (now-start < 3)){
             pause(.02);
             now= clock.seconds();
         }
+         */
     }
 }
