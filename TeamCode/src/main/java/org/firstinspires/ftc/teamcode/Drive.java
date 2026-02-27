@@ -6,6 +6,8 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.InstantAction;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -18,7 +20,7 @@ import org.firstinspires.ftc.teamcode.utilities.GlobalVars;
 public class Drive extends Init{
 
     public static double limiter = 1;
-    public static double fps = 1;
+    public static double fps = 24;
     public static boolean launching = true;
     public static boolean peter = false;
 
@@ -66,16 +68,12 @@ public class Drive extends Init{
                 FtcDashboard.getInstance().startCameraStream(visionPortal,fps);
                 currentFPS = fps;
             }
-            if (peter){
-                power = -gamepad1.right_stick_y;
-                direction = gamepad1.left_stick_x;
-            }
-            else {
+
                 power = -gamepad1.left_stick_y;
                 sideways = gamepad1.left_stick_x;
                 direction = gamepad1.right_stick_x;
 
-            }
+
 
             intake = gamepad2.left_trigger-gamepad2.right_trigger;
 
@@ -85,23 +83,13 @@ public class Drive extends Init{
 
             Pair<Double, Double> goalDistAndBearing = aprilTagDetector.getGoalDistAndBearing();
 
-            /*
-            if (gamepad2.right_bumper && (goalDistAndBearing != null)) {
-                //launchAtDist(goalDistAndBearing.first);
-            }
-            if (gamepad2.left_bumper) {
-                launcher = -500;
-            }
-            else {
-                launcher = GlobalVars.defaultLauncherSpeed;
-            }
-
-             */
-
             power = power * limiter;
             direction = direction * limiter;
             sideways = sideways * limiter;
-            pinpointComputer.update();
+
+            //pinpointComputer.update();
+
+            /*
             telemetry.addData("pinX",pinpointComputer.getPosX(DistanceUnit.CM));
             telemetry.addData("pinY",pinpointComputer.getPosY(DistanceUnit.CM));
             telemetry.addData("pinH",pinpointComputer.getHeading(AngleUnit.DEGREES));
@@ -117,17 +105,10 @@ public class Drive extends Init{
             telemetry.addData("P", imu.getRobotYawPitchRollAngles().getPitch());
             telemetry.addData("R", imu.getRobotYawPitchRollAngles().getRoll());
 
-            if(!launching){
-                launcher = 0;
-            }
+             */
 
-            if (gamepad1.left_bumper && (goalDistAndBearing != null)) {
+            if (gamepad2.right_bumper && (goalDistAndBearing != null)) {
                 launchAtDist(goalDistAndBearing.first);
-            }
-
-            else if (gamepad1.right_bumper){
-                launcher = -2000;
-                launcherMotor.setVelocity(launcher);
             }
             else {
                 launcher = 0;
