@@ -21,5 +21,5 @@ public class GlobalVars {
 
     public static Telemetry telemetryGlobal;
 
-    public static final int defaultLauncherSpeed = -100;
+    public static final int defaultLauncherSpeed = 0;
 }
