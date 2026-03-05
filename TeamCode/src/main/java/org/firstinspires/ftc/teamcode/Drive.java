@@ -58,7 +58,7 @@ public class Drive extends Init{
                     .setStroke("green")
                     .setFill("red")
                     .setAlpha(1.0)
-                    .strokeRect(pinpointComputer.getPosX(DistanceUnit.MM),pinpointComputer.getPosY(DistanceUnit.MM), 4,4 )
+                    .strokeRect(pinpointComputer.getPosX(DistanceUnit.MM)/25.4,pinpointComputer.getPosY(DistanceUnit.MM)/25.4, 4,4 )
             ;
 
 
