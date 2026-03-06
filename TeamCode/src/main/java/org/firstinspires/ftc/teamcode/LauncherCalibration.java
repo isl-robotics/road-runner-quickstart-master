@@ -30,20 +30,19 @@ public class LauncherCalibration extends Init{
             }
 
             if (gamepad1.a){
-                launcherMotor.setVelocity(setVelocity);
+                launcherController.setVelocity(setVelocity);
             }
             else {
-                launcherMotor.setVelocity(0);
+                launcherController.setVelocity(0);
             }
 
-            launcherController.launcherMotor.setPower(-gamepad1.left_trigger);
             mecanumDrivetrain.setOrtho(power, direction);
 
             if(aprilTagDetector.isTagDetected(20)) {
                 telemetry.addData("Distance", aprilTagDetector.getTagById(20).ftcPose.y);
             }
             telemetry.addData("Set Velocity", setVelocity);
-            telemetry.addData("Current Velocity", launcherMotor.getVelocity());
+            telemetry.addData("Current Velocity", launcherController.getVelocity());
 
             aprilTagDetector.updateTags();
             if(aprilTagDetector.isTagDetected(20)){

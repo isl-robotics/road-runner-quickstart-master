@@ -29,7 +29,8 @@ public class Drive extends Init{
     @Override
     public void extraInit(){
         mecanumDrivetrain.setZeroPowerBehaviour(DcMotor.ZeroPowerBehavior.BRAKE);
-        launcherMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        launcherController.launcherMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        launcherController.launcherMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     }
     @Override
     protected void runStrategy() {
@@ -112,7 +113,7 @@ public class Drive extends Init{
             }
             else {
                 launcher = 0;
-                launcherMotor.setVelocity(launcher);
+                launcherController.setVelocity(launcher);
             }
 
             intakeMotor.setPower(intake);
@@ -146,7 +147,7 @@ public class Drive extends Init{
             if (gamepad2.right_bumper && (goalDistAndBearing != null)){
                 launchAtDist(goalDistAndBearing.first);
             } else {
-                launcherController.launcherMotor.setVelocity(GlobalVars.defaultLauncherSpeed);
+                launcherController.setVelocity(GlobalVars.defaultLauncherSpeed);
             }
 
 //            }

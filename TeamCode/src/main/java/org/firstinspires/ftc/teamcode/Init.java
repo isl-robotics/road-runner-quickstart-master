@@ -40,8 +40,9 @@ public abstract class Init extends LinearOpMode {
 
     protected DcMotor gateMotor;
 
-    protected DcMotorEx launcherMotor;
     protected Servo gate;
+    protected DcMotorEx launcherMotor1;
+    protected DcMotorEx launcherMotor2;
     protected UniversalPID goalAlignmentPID = new UniversalPID(-0.08,0,-0.009, 0.5, 2);
     protected IMU imu;
     protected LauncherController launcherController;
@@ -63,7 +64,8 @@ public abstract class Init extends LinearOpMode {
         brMotor = hardwareMap.get(DcMotor.class, "BackRightMotor");
         mecanumDrivetrain = new MecanumDrivetrain(flMotor, frMotor, blMotor, brMotor);
 
-        launcherMotor = hardwareMap.get(DcMotorEx.class, "LauncherMotor");
+        launcherMotor1 = hardwareMap.get(DcMotorEx.class, "LauncherMotor1");
+        launcherMotor2 = hardwareMap.get(DcMotorEx.class, "LauncherMotor2");
 
         intakeMotor = hardwareMap.get(DcMotor.class, "IntakeMotor");
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -78,7 +80,7 @@ public abstract class Init extends LinearOpMode {
 
         mecanumDrivetrainController = new MecanumDrivetrainController(mecanumDrivetrain, pinpointComputer);
 
-        launcherController = new LauncherController(launcherMotor);
+        launcherController = new LauncherController(launcherMotor1, launcherMotor2);
         clock.reset();
 
         setTeam();
@@ -148,7 +150,7 @@ public abstract class Init extends LinearOpMode {
     public void launchAtDist(double tagDist){
         double speed = (-3.35547*0.00001)*Math.pow(tagDist, 3)-0.03097873*Math.pow(tagDist, 2)+-7.804141082*tagDist+2146.744336;
         speed = Math.round(speed/20)*20;  // Round to nearest 20
-        launcherController.launcherMotor.setVelocity(speed);
+        launcherController.setVelocity(speed);
         /*
         double start = clock.seconds();
         double now = clock.seconds();
