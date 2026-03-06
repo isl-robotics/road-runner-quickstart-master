@@ -149,10 +149,10 @@ public class Drive extends Init{
 //            }
 
             if(gamepad2.b){
-                gate.setPosition(servomax);
+                //gate.setPosition(servomax);
             }
             else {
-                gate.setPosition(0);
+                //gate.setPosition(0);
             }
 
             telemetry.update();
