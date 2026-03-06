@@ -38,6 +38,8 @@ public abstract class Init extends LinearOpMode {
     protected DcMotor brMotor;
     protected DcMotor intakeMotor;
 
+    protected DcMotor gateMotor;
+
     protected DcMotorEx launcherMotor;
     protected Servo gate;
     protected UniversalPID goalAlignmentPID = new UniversalPID(-0.08,0,-0.009, 0.5, 2);
