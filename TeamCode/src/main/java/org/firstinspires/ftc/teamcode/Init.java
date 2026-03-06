@@ -11,12 +11,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.hardware.LauncherController;
 import org.firstinspires.ftc.teamcode.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.teamcode.hardware.MecanumDrivetrainController;
@@ -40,11 +38,9 @@ public abstract class Init extends LinearOpMode {
 
     protected DcMotor gateMotor;
 
-    protected Servo gate;
     protected DcMotorEx launcherMotor1;
     protected DcMotorEx launcherMotor2;
     protected UniversalPID goalAlignmentPID = new UniversalPID(-0.08,0,-0.009, 0.5, 2);
-    protected IMU imu;
     protected LauncherController launcherController;
     protected MecanumDrivetrain mecanumDrivetrain;
     protected MecanumDrivetrainController mecanumDrivetrainController;
@@ -70,14 +66,6 @@ public abstract class Init extends LinearOpMode {
         intakeMotor = hardwareMap.get(DcMotor.class, "IntakeMotor");
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        gate = hardwareMap.get(Servo.class, "Gate");
-
-        pinpointComputer = hardwareMap.get(GoBildaPinpointDriver.class, "PinpointComputer");
-        pinpointComputer.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
-        pinpointComputer.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        //pinpointComputer.setOffsets(-13.5,-37.7, DistanceUnit.CM);
-        //pinpointComputer.resetPosAndIMU();
-
         mecanumDrivetrainController = new MecanumDrivetrainController(mecanumDrivetrain, pinpointComputer);
 
         launcherController = new LauncherController(launcherMotor1, launcherMotor2);
@@ -85,7 +73,7 @@ public abstract class Init extends LinearOpMode {
 
         setTeam();
         initCamera();
-        initImu();
+        initPinpointComputer();
 
         extraInit();
 
@@ -114,13 +102,12 @@ public abstract class Init extends LinearOpMode {
         }
     }
 
-    private void initImu(){
-        imu = hardwareMap.get(IMU.class, "imu");
-
-        RevHubOrientationOnRobot imuOrientationNew = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.xyzOrientation(0,0,-90));
-
-        imu.initialize(new IMU.Parameters(imuOrientationNew));
-        imu.resetYaw();
+    private void initPinpointComputer(){
+        pinpointComputer = hardwareMap.get(GoBildaPinpointDriver.class, "PinpointComputer");
+        pinpointComputer.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        pinpointComputer.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+        //pinpointComputer.setOffsets(-13.5,-37.7, DistanceUnit.CM);
+        //pinpointComputer.resetPosAndIMU();
     }
 
     public void setTeam(){

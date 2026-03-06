@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -12,7 +11,7 @@ public class LauncherCalibration extends Init{
     @Override
     protected void runStrategy() {
         FtcDashboard.getInstance().startCameraStream(visionPortal,0);
-        gate.setPosition(0.4);
+        //gate.setPosition(0.4);
         while(opModeIsActive()){
             double power = gamepad1.left_stick_y;
             double direction = gamepad1.right_stick_x;
