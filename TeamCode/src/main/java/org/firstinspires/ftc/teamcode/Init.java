@@ -66,6 +66,7 @@ public abstract class Init extends LinearOpMode {
         launcherMotor = hardwareMap.get(DcMotorEx.class, "LauncherMotor");
 
         intakeMotor = hardwareMap.get(DcMotor.class, "IntakeMotor");
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         gate = hardwareMap.get(Servo.class, "Gate");
 
