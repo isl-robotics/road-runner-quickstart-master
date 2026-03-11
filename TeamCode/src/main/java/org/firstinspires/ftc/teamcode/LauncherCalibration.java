@@ -35,7 +35,9 @@ public class LauncherCalibration extends Init{
                 launcherController.setVelocity(0);
             }
 
-            mecanumDrivetrain.setOrtho(power, direction);
+            //mecanumDrivetrain.setOrtho(power, direction);
+
+            launcherController.gateMotor.setPower(gamepad2.left_stick_y);
 
             if(aprilTagDetector.isTagDetected(20)) {
                 telemetry.addData("Distance", aprilTagDetector.getTagById(20).ftcPose.y);

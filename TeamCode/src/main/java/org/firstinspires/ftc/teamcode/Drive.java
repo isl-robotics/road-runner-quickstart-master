@@ -42,7 +42,6 @@ public class Drive extends Init{
         double direction = 0;
         double sideways = 0;
         double intake;
-        double thirdIntake;
         double launcher = 0;
 
         double currentFPS = fps;
@@ -75,7 +74,6 @@ public class Drive extends Init{
 
             intake = gamepad2.left_trigger-gamepad2.right_trigger;
 
-            thirdIntake = gamepad2.left_stick_y;
 
             power = power * (1-gamepad1.right_trigger*0.8);
             direction = direction * (1-gamepad1.right_trigger*0.8);
@@ -117,7 +115,7 @@ public class Drive extends Init{
 
             intakeMotor.setPower(intake);
 
-            thirdStage.setPower(thirdIntake);
+            launcherController.gateMotor.setPower(gamepad2.left_stick_y);
 
             if(gamepad2.leftBumperWasPressed()){
                 if (goalDistAndBearing != null) {
