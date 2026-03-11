@@ -32,4 +32,9 @@ public class LauncherController {
     }
 
     public double getVelocity(){return (launcherMotor1.getVelocity() + launcherMotor2.getVelocity())/2;}
+
+    public void setPIDFCoefficients(DcMotor.RunMode runMode, PIDFCoefficients pidfCoefficients) {
+        launcherMotor2.setPIDFCoefficients(runMode, pidfCoefficients);
+        launcherMotor1.setPIDFCoefficients(runMode, pidfCoefficients);
+    }
 }
