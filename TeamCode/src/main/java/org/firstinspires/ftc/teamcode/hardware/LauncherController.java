@@ -9,10 +9,12 @@ import org.firstinspires.ftc.teamcode.utilities.GlobalVars;
 public class LauncherController {
     public final DcMotorEx launcherMotor1;
     public final DcMotorEx launcherMotor2;
+    private final DcMotor gateMotor;
 
-    public LauncherController(DcMotorEx launcherMotor1, DcMotorEx launcherMotor2){
+    public LauncherController(DcMotorEx launcherMotor1, DcMotorEx launcherMotor2, DcMotor gateMotor){
         this.launcherMotor1 = launcherMotor1;
         this.launcherMotor2 = launcherMotor2;
+        this.gateMotor = gateMotor;
 
         launcherMotor1.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         launcherMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

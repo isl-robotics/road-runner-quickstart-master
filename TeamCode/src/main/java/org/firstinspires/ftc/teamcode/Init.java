@@ -63,12 +63,14 @@ public abstract class Init extends LinearOpMode {
         launcherMotor1 = hardwareMap.get(DcMotorEx.class, "LauncherMotor1");
         launcherMotor2 = hardwareMap.get(DcMotorEx.class, "LauncherMotor2");
 
+        //gateMotor = hardwareMap.get(DcMotor.class, "GateMotor");
+
+        launcherController = new LauncherController(launcherMotor1, launcherMotor2, gateMotor);
+
         intakeMotor = hardwareMap.get(DcMotor.class, "IntakeMotor");
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         mecanumDrivetrainController = new MecanumDrivetrainController(mecanumDrivetrain, pinpointComputer);
-
-        launcherController = new LauncherController(launcherMotor1, launcherMotor2);
         clock.reset();
 
         setTeam();
