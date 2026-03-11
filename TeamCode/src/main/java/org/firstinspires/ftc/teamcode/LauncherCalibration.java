@@ -8,6 +8,9 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 @TeleOp
 public class LauncherCalibration extends Init{
     int setVelocity = 0;
+
+    boolean spin = false;
+
     @Override
     protected void runStrategy() {
         FtcDashboard.getInstance().startCameraStream(visionPortal,0);
@@ -28,7 +31,11 @@ public class LauncherCalibration extends Init{
                 setVelocity -= 200;
             }
 
-            if (gamepad1.a){
+            if(gamepad1.aWasPressed()){
+                spin = !(spin);
+            }
+
+            if (spin){
                 launcherController.setVelocity(setVelocity);
             }
             else {
@@ -36,6 +43,8 @@ public class LauncherCalibration extends Init{
             }
 
             mecanumDrivetrain.setOrtho(power, direction);
+
+            intakeMotor.setPower(gamepad1.left_trigger-gamepad1.right_trigger);
 
             if(aprilTagDetector.isTagDetected(20)) {
                 telemetry.addData("Distance", aprilTagDetector.getTagById(20).ftcPose.y);
