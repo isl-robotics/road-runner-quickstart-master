@@ -36,6 +36,8 @@ public abstract class Init extends LinearOpMode {
     protected DcMotor brMotor;
     protected DcMotor intakeMotor;
 
+    protected DcMotor thirdStage;
+
     protected DcMotor gateMotor;
 
     protected DcMotorEx launcherMotor1;
@@ -69,6 +71,9 @@ public abstract class Init extends LinearOpMode {
 
         intakeMotor = hardwareMap.get(DcMotor.class, "IntakeMotor");
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        thirdStage = hardwareMap.get(DcMotor.class, "ThirdStage");
+        thirdStage.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         mecanumDrivetrainController = new MecanumDrivetrainController(mecanumDrivetrain, pinpointComputer);
         clock.reset();
