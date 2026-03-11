@@ -14,7 +14,7 @@ public class LauncherController {
     public LauncherController(DcMotorEx launcherMotor1, DcMotorEx launcherMotor2, DcMotor gateMotor){
         this.launcherMotor1 = launcherMotor1;
         this.launcherMotor2 = launcherMotor2;
-        this.gateMotor = gateMotor;
+        this.gateMotor = gateMotor; // TODO: ADD INIT
 
         launcherMotor1.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         launcherMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
