@@ -44,7 +44,7 @@ public class LauncherCalibration extends Init{
 
             //mecanumDrivetrain.setOrtho(power, direction);
 
-            launcherController.gateMotor.setPower(gamepad2.left_stick_y);
+            launcherController.gateMotor.setPower(gamepad1.left_stick_y);
 
             intakeMotor.setPower(gamepad1.left_trigger-gamepad1.right_trigger);
 
