@@ -139,7 +139,7 @@ public abstract class Init extends LinearOpMode {
     public void launchAtDist(double tagDist){
         double speed = (6*0.00001)*Math.pow(tagDist, 3)-0.0501*Math.pow(tagDist, 2)+13.511*tagDist+405.1;
         speed = Math.round(speed/20)*20;  // Round to nearest 20
-        launcherController.setVelocity(speed);
+        launcherController.setVelocity(-speed);
         /*
         double start = clock.seconds();
         double now = clock.seconds();
