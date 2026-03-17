@@ -70,9 +70,17 @@ public class Drive extends Init{
                 sideways = gamepad1.left_stick_x;
                 direction = gamepad1.right_stick_x;
 
+            if (gamepad2.a){
+                launcherController.gateMotor.setPower(0.5);
+                intakeMotor.setPower(-0.5);
+            }
+            
+            if (gamepad2.b){
+                launcherController.setVelocity(-500);
+            }
 
 
-            intake = gamepad2.left_trigger-gamepad2.right_trigger;
+            intake = (gamepad2.left_trigger-gamepad2.right_trigger+gamepad1.left_trigger);
 
 
             power = power * (1-gamepad1.right_trigger*0.8);
