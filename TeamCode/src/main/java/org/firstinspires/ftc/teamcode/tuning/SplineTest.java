@@ -30,6 +30,7 @@ public final class SplineTest extends LinearOpMode {
     public double mmToIn (double mm){
         return mm*0.03937;
     }
+    /*
     public class Intake {
         private DcMotor intake;
         private Servo gate;
@@ -82,9 +83,12 @@ public final class SplineTest extends LinearOpMode {
         }
     }
 
+     */
+
     @Override
     public void runOpMode() throws InterruptedException {
-        Intake intake = new Intake(hardwareMap);
+
+        //Intake intake = new Intake(hardwareMap);
         Pose2d beginPose = new Pose2d(61,  -14.5, Math.PI);
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
 
@@ -120,7 +124,7 @@ public final class SplineTest extends LinearOpMode {
 
         TrajectoryActionBuilder traj8 = traj7.endTrajectory().fresh()
                 .strafeTo(new Vector2d(30, -20))
-                .waitSeconds(10);
+                .waitSeconds(5);
         TrajectoryActionBuilder traj9 = traj8.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(61, -14.5), Math.PI)
                 .waitSeconds(1);
@@ -128,7 +132,7 @@ public final class SplineTest extends LinearOpMode {
         waitForStart();
 
 
-
+    for (int i = 1; i<5; i++) {
         Actions.runBlocking(
                 new SequentialAction(
                         traj1.build(),
@@ -150,6 +154,7 @@ public final class SplineTest extends LinearOpMode {
 
                 )
         );
+    }
 
             /*
             Actions.runBlocking(
@@ -166,7 +171,7 @@ public final class SplineTest extends LinearOpMode {
                         .strafeToLinearHeading(new Vector2d(61,-14.5), Math.PI)
                         .build());
 
-             */
+ */
 
     }
 
