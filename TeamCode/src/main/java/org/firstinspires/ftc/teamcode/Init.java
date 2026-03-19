@@ -5,6 +5,7 @@ import android.util.Size;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.arcrobotics.ftclib.util.InterpLUT;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -39,6 +40,8 @@ public abstract class Init extends LinearOpMode {
 
     protected DcMotorEx launcherMotor1;
     protected DcMotorEx launcherMotor2;
+    protected InterpLUT launchingControlPoints;
+
     protected UniversalPID goalAlignmentPID = new UniversalPID(-0.08,0,-0.009, 0.5, 2);
     protected LauncherController launcherController;
     protected MecanumDrivetrain mecanumDrivetrain;
@@ -69,11 +72,11 @@ public abstract class Init extends LinearOpMode {
         intakeMotor = hardwareMap.get(DcMotor.class, "IntakeMotor");
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-
         mecanumDrivetrainController = new MecanumDrivetrainController(mecanumDrivetrain, pinpointComputer);
         clock.reset();
 
         setTeam();
+        initLauncherControlPoints();
         initCamera();
         initPinpointComputer();
 
@@ -102,6 +105,37 @@ public abstract class Init extends LinearOpMode {
         if (visionPortal != null){
             visionPortal.close();
         }
+    }
+
+    private void initLauncherControlPoints(){
+        launchingControlPoints = new InterpLUT();
+
+        launchingControlPoints.add(150, 1540);
+        launchingControlPoints.add(160, 1540);
+        launchingControlPoints.add(170, 1540);
+        launchingControlPoints.add(180, 1560);
+        launchingControlPoints.add(190, 1600);
+        launchingControlPoints.add(200, 1600);
+        launchingControlPoints.add(210, 1600);
+        launchingControlPoints.add(220, 1620);
+        launchingControlPoints.add(230, 1620);
+        launchingControlPoints.add(240, 1640);
+        launchingControlPoints.add(250, 1640);
+        launchingControlPoints.add(260, 1640);
+        launchingControlPoints.add(270, 1640);
+        launchingControlPoints.add(280, 1640);
+        launchingControlPoints.add(290, 1640);
+        launchingControlPoints.add(300, 1640);
+        launchingControlPoints.add(310, 1640);
+        launchingControlPoints.add(320, 1640);
+        launchingControlPoints.add(330, 1660);
+        launchingControlPoints.add(340, 1660);
+        launchingControlPoints.add(350, 1680);
+        launchingControlPoints.add(360, 1680);
+        launchingControlPoints.add(370, 1720);
+        launchingControlPoints.add(380, 1760);
+
+        launchingControlPoints.createLUT();
     }
 
     private void initPinpointComputer(){
@@ -137,9 +171,10 @@ public abstract class Init extends LinearOpMode {
     }
 
     public void launchAtDist(double tagDist){
-        double speed = (6*0.00001)*Math.pow(tagDist, 3)-0.0501*Math.pow(tagDist, 2)+13.511*tagDist+405.1;
+        //double speed = (6*0.00001)*Math.pow(tagDist, 3)-0.0501*Math.pow(tagDist, 2)+13.511*tagDist+405.1;
+        double speed = launchingControlPoints.get(tagDist);
         speed = Math.round(speed/20)*20;  // Round to nearest 20
-        launcherController.setVelocity(-speed);
+        launcherController.setVelocity(speed);
         /*
         double start = clock.seconds();
         double now = clock.seconds();
