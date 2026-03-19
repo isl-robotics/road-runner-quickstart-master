@@ -138,6 +138,12 @@ public class Drive extends Init{
                 } else {
                     mecanumDrivetrain.setOrtho(sideways, power, direction);
                 }
+            if (gamepad2.dpad_down){
+                gateServo.setPosition(down_pos);
+            }
+            if (gamepad2.dpad_up){
+                gateServo.setPosition(0);
+            }
             if (gamepad1.aWasPressed()){
                 pinpointComputer.resetPosAndIMU();
             }
