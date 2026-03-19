@@ -8,13 +8,13 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 @Config
 @TeleOp
 public class LauncherTuning extends Init{
-    public static double highVelocity = 2000;
-    public static double lowVelocity = 950;
+    public static double highVelocity = 1700;
+    public static double lowVelocity = 1000;
 
     double curSetVelocity = highVelocity;
 
-    public static double f = 13.5;
-    public static double p = 200;
+    public static double f = 14;
+    public static double p = 250;
     PIDFCoefficients pidfCoefficients;
 
     int stepIndex = 0;
