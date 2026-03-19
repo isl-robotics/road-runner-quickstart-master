@@ -154,7 +154,7 @@ public class Drive extends Init{
                 pinpointComputer.resetPosAndIMU();
             }
 
-            if (gamepad1.right_bumper) {
+            if (gamepad1.left_bumper) {
                 mecanumDrivetrain.setOrthoAbs(sidewaysPower, forwardPower, rotationPower, pinpointComputer.getHeading(AngleUnit.DEGREES));
             } else {
                 mecanumDrivetrain.setOrtho(sidewaysPower, forwardPower, rotationPower);

@@ -6,20 +6,12 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 public abstract class AutoInit extends Init{
     public double mmToIn (double mm){
         return mm*0.03937;
     }
-
-    protected Action openGate;
-    protected Action closeGate;
-    protected Action intake;
-    protected Action stopIntake;
-    protected Action intakeGate;
-    protected Action stopGate;
-    protected Action startLauncher;
-    protected Action stopLauncher;
 
     protected class OpenGate implements Action {
         @Override
@@ -27,6 +19,10 @@ public abstract class AutoInit extends Init{
             gateServo.setPosition(0.07);
             return false;
         }
+    }
+
+    protected Action openGate(){
+        return new OpenGate();
     }
 
     protected class CloseGate implements Action {
@@ -37,20 +33,35 @@ public abstract class AutoInit extends Init{
         }
     }
 
+
+    protected Action closeGate(){
+        return new CloseGate();
+    }
+
     protected class Intake implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
             intakeMotor.setPower(1);
+            gateMotor.setPower(-1);
             return false;
         }
+    }
+
+    protected Action intake(){
+        return new Intake();
     }
 
     protected class StopIntake implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
             intakeMotor.setPower(0);
+            gateMotor.setPower(0);
             return false;
         }
+    }
+
+    protected Action stopIntake(){
+        return new StopIntake();
     }
 
     protected class IntakeGate implements Action {
@@ -61,12 +72,20 @@ public abstract class AutoInit extends Init{
         }
     }
 
+    protected Action intakeGate(){
+        return new IntakeGate();
+    }
+
     protected class StopGate implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
             gateMotor.setPower(0);
             return false;
         }
+    }
+
+    protected Action stopGate(){
+        return new StopGate();
     }
 
     protected class StartLauncher implements Action{
@@ -89,6 +108,24 @@ public abstract class AutoInit extends Init{
         }
     }
 
+    protected Action startLauncher(){
+        return new StartLauncher();
+    }
+
+    protected class Launch implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            gateMotor.setPower(-1);
+            intakeMotor.setPower(1);
+            pause(3);
+            return false;
+        }
+    }
+
+    protected Action launch(){
+        return new Launch();
+    }
+
     protected class StopLauncher implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -97,15 +134,7 @@ public abstract class AutoInit extends Init{
         }
     }
 
-    @Override
-    protected void initActions(){
-        openGate = new OpenGate();
-        closeGate = new CloseGate();
-        intake = new Intake();
-        stopIntake = new StopIntake();
-        intakeGate = new IntakeGate();
-        stopGate = new StopGate();
-        startLauncher = new StartLauncher();
-        stopLauncher = new StopLauncher();
+    protected Action stopLauncher(){
+        return new StopLauncher();
     }
 }
