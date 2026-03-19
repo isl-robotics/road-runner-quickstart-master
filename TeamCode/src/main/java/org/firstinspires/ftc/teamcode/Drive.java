@@ -98,7 +98,7 @@ public class Drive extends Init{
             rotationPower = rotationPower * limiter;
             sidewaysPower = sidewaysPower * limiter;
 
-            //pinpointComputer.update();
+            pinpointComputer.update();
 
             /*
             telemetry.addData("pinX",pinpointComputer.getPosX(DistanceUnit.CM));
@@ -118,13 +118,19 @@ public class Drive extends Init{
 
              */
 
+            if (goalDistAndBearing != null){
+                telemetry.addData("Bearing", goalDistAndBearing.second);
+            }else{
+                telemetry.addData("Bearing", 0);
             }
+            telemetry.addData("Heading", pinpointComputer.getHeading(AngleUnit.DEGREES));
 
             intakeMotor.setPower(intake);
 
             launcherController.gateMotor.setPower(gamepad2.left_stick_y);
 
             if(gamepad2.leftBumperWasPressed()){
+                goalAlignmentPID.setPID(kP,kI,kD);
                 if (goalDistAndBearing != null) {
                     goalAlignmentPID.reset(goalDistAndBearing.second);
                 }
@@ -132,12 +138,8 @@ public class Drive extends Init{
 
             if (gamepad2.left_bumper){
                 alignToGoal();
-            }else {
-                if (gamepad1.right_stick_button) {
-                    mecanumDrivetrain.setOrthoAbs(sideways, power, direction, pinpointComputer.getHeading(AngleUnit.DEGREES));
-                } else {
-                    mecanumDrivetrain.setOrtho(sideways, power, direction);
-                }
+                rotationPower = alignmentPower;
+            }
             if (gamepad2.dpad_down){
                 gateServo.setPosition(down_pos);
             }

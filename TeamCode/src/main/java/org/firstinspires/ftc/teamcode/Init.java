@@ -49,6 +49,7 @@ public abstract class Init extends LinearOpMode {
     protected MecanumDrivetrainController mecanumDrivetrainController;
 
     protected GoBildaPinpointDriver pinpointComputer;
+    protected double alignmentPower;
 
     public void extraInit(){}
 
@@ -164,10 +165,14 @@ public abstract class Init extends LinearOpMode {
     public Pair<Double, Boolean> alignToGoal(){
         Pair<Double, Double> distAndBearing = aprilTagDetector.getGoalDistAndBearing();
         if (distAndBearing != null) {
-            mecanumDrivetrain.rotate(Range.clip(goalAlignmentPID.compute(distAndBearing.second), -0.3, 0.3));
+            double error = -distAndBearing.second-4d;
+            if(Math.abs(error)<1){
+                alignmentPower = 0;
+            }
+            alignmentPower = Range.clip(goalAlignmentPID.compute(error), -0.4, 0.4);
             return new Pair<>(distAndBearing.second, goalAlignmentPID.isDone());
         } else {
-            mecanumDrivetrain.rotate(0);
+            alignmentPower = 0;
             return null;
         }
     }
