@@ -46,7 +46,7 @@ public class BlueAuto extends AutoInit{
                 .waitSeconds(0.3);
 
         traj5 = traj4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
+                //.strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
                 .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
                 //.waitSeconds(1)
                 ;
