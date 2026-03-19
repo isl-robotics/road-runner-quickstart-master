@@ -21,7 +21,13 @@ public class Drive extends Init{
     public static boolean launching = true;
     public static boolean peter = false;
 
-    public static double servomax = 0.4;
+    public static double kP,kI,kD;
+    private double forwardPower;
+    private double rotationPower;
+    private double sidewaysPower;
+    private double intake;
+    private double launcher;
+    public static double down_pos;
 
     @Override
     public void extraInit(){
@@ -65,9 +71,9 @@ public class Drive extends Init{
                 currentFPS = fps;
             }
 
-                power = -gamepad1.left_stick_y;
-                sideways = gamepad1.left_stick_x;
-                direction = gamepad1.right_stick_x;
+                forwardPower = -gamepad1.left_stick_y;
+                sidewaysPower = gamepad1.left_stick_x;
+                rotationPower = gamepad1.right_stick_x;
 
             if (gamepad2.a){
                 launcherController.gateMotor.setPower(0.5);
@@ -82,15 +88,15 @@ public class Drive extends Init{
             intake = (gamepad2.left_trigger-gamepad2.right_trigger+gamepad1.left_trigger);
 
 
-            power = power * (1-gamepad1.right_trigger*0.8);
-            direction = direction * (1-gamepad1.right_trigger*0.8);
-            sideways = sideways * (1-gamepad1.right_trigger*0.8);
+            forwardPower = forwardPower * (1-gamepad1.right_trigger*0.8);
+            rotationPower = rotationPower * (1-gamepad1.right_trigger*0.8);
+            sidewaysPower = sidewaysPower * (1-gamepad1.right_trigger*0.8);
 
             Pair<Double, Double> goalDistAndBearing = aprilTagDetector.getGoalDistAndBearing();
 
-            power = power * limiter;
-            direction = direction * limiter;
-            sideways = sideways * limiter;
+            forwardPower = forwardPower * limiter;
+            rotationPower = rotationPower * limiter;
+            sidewaysPower = sidewaysPower * limiter;
 
             //pinpointComputer.update();
 
@@ -132,6 +138,8 @@ public class Drive extends Init{
                 } else {
                     mecanumDrivetrain.setOrtho(sideways, power, direction);
                 }
+                mecanumDrivetrain.setOrthoAbs(sidewaysPower, forwardPower, rotationPower, pinpointComputer.getHeading(AngleUnit.DEGREES));
+                mecanumDrivetrain.setOrtho(sidewaysPower, forwardPower, rotationPower);
             }
 
             if (gamepad2.right_bumper && (goalDistAndBearing != null)){
