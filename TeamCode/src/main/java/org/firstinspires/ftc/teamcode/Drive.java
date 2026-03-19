@@ -138,6 +138,9 @@ public class Drive extends Init{
                 } else {
                     mecanumDrivetrain.setOrtho(sideways, power, direction);
                 }
+            if (gamepad1.aWasPressed()){
+                pinpointComputer.resetPosAndIMU();
+            }
                 mecanumDrivetrain.setOrthoAbs(sidewaysPower, forwardPower, rotationPower, pinpointComputer.getHeading(AngleUnit.DEGREES));
                 mecanumDrivetrain.setOrtho(sidewaysPower, forwardPower, rotationPower);
             }
