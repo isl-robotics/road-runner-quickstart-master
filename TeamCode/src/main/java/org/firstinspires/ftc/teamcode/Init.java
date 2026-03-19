@@ -80,6 +80,7 @@ public abstract class Init extends LinearOpMode {
 
         setTeam();
         initLauncherControlPoints();
+        initActions();
         initCamera();
         initPinpointComputer();
 
@@ -160,6 +161,9 @@ public abstract class Init extends LinearOpMode {
             now = clock.seconds();
             try { Thread.sleep(5); } catch (InterruptedException e) {}
         }
+    }
+
+    protected void initActions(){
     }
 
     public Pair<Double, Boolean> alignToGoal(){
