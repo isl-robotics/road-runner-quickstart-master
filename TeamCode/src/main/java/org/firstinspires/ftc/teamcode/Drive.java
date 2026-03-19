@@ -4,7 +4,6 @@ import android.util.Pair;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -36,13 +35,13 @@ public class Drive extends Init{
 
         dashboard.startCameraStream(visionPortal,fps);
 
-        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+        //telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-        double power = 0;
-        double direction = 0;
-        double sideways = 0;
-        double intake;
-        double launcher = 0;
+        forwardPower = 0;
+        rotationPower = 0;
+        sidewaysPower = 0;
+        intake = 0;
+        launcher = 0;
 
         double currentFPS = fps;
 
@@ -113,12 +112,6 @@ public class Drive extends Init{
 
              */
 
-            if (gamepad2.right_bumper && (goalDistAndBearing != null)) {
-                launchAtDist(goalDistAndBearing.first);
-            }
-            else {
-                launcher = 0;
-                launcherController.setVelocity(launcher);
             }
 
             intakeMotor.setPower(intake);
@@ -130,16 +123,6 @@ public class Drive extends Init{
                     goalAlignmentPID.reset(goalDistAndBearing.second);
                 }
             }
-
-            //           else{
-            /*
-            mecanumDrivetrain.setPowers(
-                    (power+sideways)+direction,
-                    (power-sideways)-direction,
-                    (power - sideways) + direction,
-                    (power + sideways) - direction
-            );
-             */
 
             if (gamepad2.left_bumper){
                 alignToGoal();
@@ -155,15 +138,6 @@ public class Drive extends Init{
                 launchAtDist(goalDistAndBearing.first);
             } else {
                 launcherController.setVelocity(GlobalVars.defaultLauncherSpeed);
-            }
-
-//            }
-
-            if(gamepad2.b){
-                //gate.setPosition(servomax);
-            }
-            else {
-                //gate.setPosition(0);
             }
 
             telemetry.update();
