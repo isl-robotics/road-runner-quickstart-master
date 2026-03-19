@@ -32,7 +32,7 @@ public class AprilTagDetector {
                 .setLensIntrinsics(980.278506554, 980.278506554, 405.170770325, 210.517863673)
                 .build();
 
-        aprilTagProcessor.setDecimation(2);
+        //aprilTagProcessor.setDecimation(2);
     }
 
     public void updateTags(){
