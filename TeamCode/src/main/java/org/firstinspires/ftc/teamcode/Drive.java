@@ -29,6 +29,8 @@ public class Drive extends Init{
     private double launcher;
     public static double down_pos;
 
+    public static double up_pos;
+
     @Override
     public void extraInit(){
         mecanumDrivetrain.setZeroPowerBehaviour(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -141,10 +143,12 @@ public class Drive extends Init{
                 rotationPower = alignmentPower;
             }
             if (gamepad2.dpad_down){
-                gateServo.setPosition(down_pos);
+             //   gateServo.setPosition(down_pos);
+                gateServo.setPosition(0.2);
             }
             if (gamepad2.dpad_up){
-                gateServo.setPosition(0);
+            //    gateServo.setPosition(up_pos);
+                gateServo.setPosition(0.07);
             }
             if (gamepad1.aWasPressed()){
                 pinpointComputer.resetPosAndIMU();
