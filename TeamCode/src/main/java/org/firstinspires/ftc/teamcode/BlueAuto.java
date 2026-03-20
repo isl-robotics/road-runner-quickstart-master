@@ -19,6 +19,12 @@ public class BlueAuto extends AutoInit{
     private TrajectoryActionBuilder traj6;
     private TrajectoryActionBuilder traj7;
     private TrajectoryActionBuilder traj8;
+    private TrajectoryActionBuilder traj9;
+    private TrajectoryActionBuilder traj10;
+    private TrajectoryActionBuilder traj11;
+    private TrajectoryActionBuilder traj12;
+
+
 
     @Override
     public void extraInit(){
@@ -42,10 +48,11 @@ public class BlueAuto extends AutoInit{
 
         traj4 = traj3.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(160))
-                .waitSeconds(0.3);
+           //     .waitSeconds(0.3)
+                ;
 
         traj5 = traj4.endTrajectory().fresh()
-                //.strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
+                .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
                 .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
                 //.waitSeconds(1)
                 ;
@@ -59,7 +66,18 @@ public class BlueAuto extends AutoInit{
                 .waitSeconds(0.3);
 
         traj8 = traj7.endTrajectory().fresh()
-                .strafeTo(new Vector2d(30, -20));
+                .strafeTo(new Vector2d(30, -20)) //CODE FOR LEAVING ZONE
+                .splineToLinearHeading(new Pose2d(mmToIn(-300), -38, -Math.toRadians(90)), -Math.toRadians(90));
+
+
+        traj9 = traj8.endTrajectory().fresh()
+                .strafeToConstantHeading(new Vector2d(mmToIn(-300),-55),new TranslationalVelConstraint(25));
+
+        traj10 = traj9.endTrajectory().fresh()
+                .splineToLinearHeading(new Pose2d(mmToIn(-300), -11.8, -Math.toRadians(150)), Math.toRadians(90));
+
+
+
     }
     @Override
     protected void runStrategy() {
@@ -92,10 +110,19 @@ public class BlueAuto extends AutoInit{
                         startLauncher(),
                         openGate(),
                         launch(),
+                     //   stopLauncher(),
+                     //   stopIntake(),
+                        closeGate(),
+                        traj8.build(),
+                        traj9.build(),
+                        traj10.build(),
+                        startLauncher(),
+                        openGate(),
+                        launch(),
                         stopLauncher(),
                         stopIntake(),
-                        closeGate(),
-                        traj8.build()
+                        closeGate()
+
                 )
         );
     }
