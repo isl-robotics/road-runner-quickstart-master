@@ -32,7 +32,7 @@ public class BlueAuto extends AutoInit{
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
 
         traj1 = drive.actionBuilder(beginPose)
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(160))
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(155))
                 .waitSeconds(1);
 
         traj2 = traj1.endTrajectory().fresh()
@@ -47,8 +47,8 @@ public class BlueAuto extends AutoInit{
                 .waitSeconds(0.2);
 
         traj4 = traj3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(160))
-           //     .waitSeconds(0.3)
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(155))
+         //       .waitSeconds(0.3)
                 ;
 
         traj5 = traj4.endTrajectory().fresh()
@@ -62,13 +62,12 @@ public class BlueAuto extends AutoInit{
                 .waitSeconds(0.2);
 
         traj7 = traj6.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(160))
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(155))
                 .waitSeconds(0.3);
 
         traj8 = traj7.endTrajectory().fresh()
                 .strafeTo(new Vector2d(30, -20)) //CODE FOR LEAVING ZONE
                 .splineToLinearHeading(new Pose2d(mmToIn(-300), -38, -Math.toRadians(90)), -Math.toRadians(90));
-
 
         traj9 = traj8.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(mmToIn(-300),-55),new TranslationalVelConstraint(25));
