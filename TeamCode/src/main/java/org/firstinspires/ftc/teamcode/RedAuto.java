@@ -8,6 +8,8 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.utilities.Team;
+
 
 @Autonomous(preselectTeleOp = "Drive")
 public class RedAuto extends AutoInit{
@@ -21,6 +23,11 @@ public class RedAuto extends AutoInit{
     private TrajectoryActionBuilder traj8;
 
     @Override
+    public void setTeam(){
+        Team.set(Team.RED);
+    }
+
+    @Override
     public void extraInit(){
         Pose2d beginPose = new Pose2d(61,  14.5, Math.PI);
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
@@ -32,10 +39,10 @@ public class RedAuto extends AutoInit{
 
         traj2 = traj1.endTrajectory().fresh()
                 .splineToLinearHeading(new Pose2d(mmToIn(900), -38,-Math.toRadians(90)), -Math.toRadians(90))
-              //  .splineToLinearHeading(new Pose2d(mmToIn(900), -50,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
+        //  .splineToLinearHeading(new Pose2d(mmToIn(900), -50,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
 
         //  .waitSeconds(0.3)
-                ;
+        ;
 
         traj3 = traj2.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(mmToIn(900),-50),new TranslationalVelConstraint(25))
@@ -48,8 +55,8 @@ public class RedAuto extends AutoInit{
         traj5 = traj4.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
                 .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
-                //.waitSeconds(1)
-                ;
+        //.waitSeconds(1)
+        ;
 
         traj6 = traj5.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(mmToIn(300),-55),new TranslationalVelConstraint(25))
@@ -71,24 +78,24 @@ public class RedAuto extends AutoInit{
                         startLauncher(),
                         openGate(),
                         launch(),
-                       // stopLauncher(),
-                    //    stopIntake(),
+                        // stopLauncher(),
+                        //    stopIntake(),
                         closeGate(),
                         traj2.build(),
-                   //     intake(),
+                        //     intake(),
                         traj3.build(),
-                    //    stopIntake(),
+                        //    stopIntake(),
                         traj4.build(),
                         startLauncher(),
                         openGate(),
                         launch(),
-                    //    stopLauncher(),
-                    //    stopIntake(),
+                        //    stopLauncher(),
+                        //    stopIntake(),
                         closeGate(),
                         traj5.build(),
                         intake(),
                         traj6.build(),
-                   //     stopIntake(),
+                        //     stopIntake(),
                         traj7.build(),
                         startLauncher(),
                         openGate(),

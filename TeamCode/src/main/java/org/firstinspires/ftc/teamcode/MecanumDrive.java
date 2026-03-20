@@ -45,6 +45,7 @@ import org.firstinspires.ftc.teamcode.messages.DriveCommandMessage;
 import org.firstinspires.ftc.teamcode.messages.MecanumCommandMessage;
 import org.firstinspires.ftc.teamcode.messages.MecanumLocalizerInputsMessage;
 import org.firstinspires.ftc.teamcode.messages.PoseMessage;
+import org.firstinspires.ftc.teamcode.utilities.Team;
 
 import java.lang.Math;
 import java.util.Arrays;
@@ -472,33 +473,33 @@ public final class MecanumDrive {
     }
 
     public TrajectoryActionBuilder actionBuilder(Pose2d beginPose) {
-        return new TrajectoryActionBuilder(
-                TurnAction::new,
-                FollowTrajectoryAction::new,
-                new TrajectoryBuilderParams(
-                        1e-6,
-                        new ProfileParams(
-                                0.25, 0.1, 1e-2
-                        )
-                ),
-                beginPose, 0.0,
-                defaultTurnConstraints,
-                defaultVelConstraint, defaultAccelConstraint);
-    }
-
-    public TrajectoryActionBuilder actionBuilder(Pose2d beginPose, boolean red) {
-        return new TrajectoryActionBuilder(
-                TurnAction::new,
-                FollowTrajectoryAction::new,
-                new TrajectoryBuilderParams(
-                        1e-6,
-                        new ProfileParams(
-                                0.25, 0.1, 1e-2
-                        )
-                ),
-                beginPose, 0.0,
-                defaultTurnConstraints,
-                defaultVelConstraint, defaultAccelConstraint, pose -> new Pose2dDual<>(
-                pose.position.x, pose.position.y.unaryMinus(), pose.heading.inverse()));
+        if(Team.get() == Team.BLUE) {
+            return new TrajectoryActionBuilder(
+                    TurnAction::new,
+                    FollowTrajectoryAction::new,
+                    new TrajectoryBuilderParams(
+                            1e-6,
+                            new ProfileParams(
+                                    0.25, 0.1, 1e-2
+                            )
+                    ),
+                    beginPose, 0.0,
+                    defaultTurnConstraints,
+                    defaultVelConstraint, defaultAccelConstraint);
+        }else{
+            return new TrajectoryActionBuilder(
+                    TurnAction::new,
+                    FollowTrajectoryAction::new,
+                    new TrajectoryBuilderParams(
+                            1e-6,
+                            new ProfileParams(
+                                    0.25, 0.1, 1e-2
+                            )
+                    ),
+                    beginPose, 0.0,
+                    defaultTurnConstraints,
+                    defaultVelConstraint, defaultAccelConstraint, pose -> new Pose2dDual<>(
+                    pose.position.x, pose.position.y.unaryMinus(), pose.heading.inverse()));
+        }
     }
 }
