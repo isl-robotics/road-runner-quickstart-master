@@ -9,7 +9,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
-@Autonomous
+@Autonomous(preselectTeleOp = "Drive")
 public class RedAuto extends AutoInit{
     private TrajectoryActionBuilder traj1;
     private TrajectoryActionBuilder traj2;
@@ -19,15 +19,14 @@ public class RedAuto extends AutoInit{
     private TrajectoryActionBuilder traj6;
     private TrajectoryActionBuilder traj7;
     private TrajectoryActionBuilder traj8;
-    private TrajectoryActionBuilder traj9;
 
     @Override
     public void extraInit(){
         Pose2d beginPose = new Pose2d(61,  14.5, Math.PI);
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
+        Pose2d startPose = new Pose2d(61,  -14.5, Math.PI);
 
-
-        traj1 = drive.actionBuilder(beginPose, true)
+        traj1 = drive.actionBuilder(startPose, true)
                 .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(160))
                 .waitSeconds(1);
 
@@ -47,7 +46,7 @@ public class RedAuto extends AutoInit{
                 .waitSeconds(0.3);
 
         traj5 = traj4.endTrajectory().fresh()
-                //.strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
+                .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
                 .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
                 //.waitSeconds(1)
                 ;
@@ -61,12 +60,7 @@ public class RedAuto extends AutoInit{
                 .waitSeconds(0.3);
 
         traj8 = traj7.endTrajectory().fresh()
-                .strafeTo(new Vector2d(30, -20))
-                .waitSeconds(5);
-
-        traj9 = traj8.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(61, -14.5), Math.PI)
-                .waitSeconds(1);
+                .strafeTo(new Vector2d(30, -20));
     }
     @Override
     protected void runStrategy() {
@@ -102,8 +96,7 @@ public class RedAuto extends AutoInit{
                         stopLauncher(),
                         stopIntake(),
                         closeGate(),
-                        traj8.build(),
-                        traj9.build()
+                        traj8.build()
                 )
         );
     }
