@@ -30,20 +30,22 @@ public class BlueAuto2 extends AutoInit{
 
         traj1 = drive.actionBuilder(beginPose)
                 .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20), -Math.toRadians(140))
-                .waitSeconds(0.9);
-
+                .waitSeconds(0.5)
+        ;
         traj2 = traj1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(-300), -30), -Math.toRadians(90));
+          //      .strafeToLinearHeading(new Vector2d(mmToIn(-300), -55), -Math.toRadians(90), new TranslationalVelConstraint(25));
+             .strafeToLinearHeading(new Vector2d(mmToIn(-300), -30), -Math.toRadians(90));
         //  .waitSeconds(0.3)
                 ;
 
         traj3 = traj2.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(-300),-55),new TranslationalVelConstraint(25))
+                .strafeToConstantHeading(new Vector2d(mmToIn(-300),-56),new TranslationalVelConstraint(25))
              //   .waitSeconds(0.2)
                 ;
         traj4 = traj3.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20), -Math.toRadians(140))
-                .waitSeconds(0.25);
+                .waitSeconds(0.5)
+              ;
 
         traj5 = traj4.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(mmToIn(300), -30), -Math.toRadians(90))
@@ -56,27 +58,29 @@ public class BlueAuto2 extends AutoInit{
                 ;
         traj7 = traj6.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20), -Math.toRadians(140))
-                .waitSeconds(0.3);
+                .waitSeconds(0.5);
 
         traj8 = traj7.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(mmToIn(860), -20), -Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(mmToIn(860), -50,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
+                .strafeToLinearHeading(new Vector2d(mmToIn(860), -50), -Math.toRadians(90))
+           //     .splineToLinearHeading(new Pose2d(mmToIn(860), -50,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
             //    .waitSeconds(1)
                 ;
         traj9 = traj8.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(860),-50),new TranslationalVelConstraint(25))
+                .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20), -Math.toRadians(140))
                 .waitSeconds(0.3);
         traj10 = traj9.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20), -Math.toRadians(140));
+                .strafeTo(new Vector2d(mmToIn(-200),-38));
+        //   .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(160));
 
-        traj11 = traj10.endTrajectory().fresh()
-                .strafeTo(new Vector2d(30, -20)); //CODE FOR LEAVING ZONE
+      //  traj11 = traj10.endTrajectory().fresh()
 
     }
     @Override
     protected void runStrategy() {
         Actions.runBlocking(
                 new SequentialAction(
+                        prepLauncher(),
                         traj1.build(),
                         startLauncher(),
                         openGate(),
@@ -101,9 +105,9 @@ public class BlueAuto2 extends AutoInit{
                         startLauncher(),
                         openGate(),
                         launch(),
+                        closeGate(),
                         traj8.build(),
                         traj9.build(),
-                        traj10.build(),
                         startLauncher(),
                         openGate(),
                         launch(),
