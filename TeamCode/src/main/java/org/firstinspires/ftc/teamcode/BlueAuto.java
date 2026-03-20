@@ -9,7 +9,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
-@Autonomous
+@Autonomous(preselectTeleOp = "Drive")
 public class BlueAuto extends AutoInit{
     private TrajectoryActionBuilder traj1;
     private TrajectoryActionBuilder traj2;
@@ -19,7 +19,6 @@ public class BlueAuto extends AutoInit{
     private TrajectoryActionBuilder traj6;
     private TrajectoryActionBuilder traj7;
     private TrajectoryActionBuilder traj8;
-    private TrajectoryActionBuilder traj9;
 
     @Override
     public void extraInit(){
@@ -60,12 +59,7 @@ public class BlueAuto extends AutoInit{
                 .waitSeconds(0.3);
 
         traj8 = traj7.endTrajectory().fresh()
-                .strafeTo(new Vector2d(30, -20))
-                .waitSeconds(5);
-
-        traj9 = traj8.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(61, -14.5), Math.PI)
-                .waitSeconds(1);
+                .strafeTo(new Vector2d(30, -20));
     }
     @Override
     protected void runStrategy() {
@@ -101,8 +95,7 @@ public class BlueAuto extends AutoInit{
                         stopLauncher(),
                         stopIntake(),
                         closeGate(),
-                        traj8.build(),
-                        traj9.build()
+                        traj8.build()
                 )
         );
     }

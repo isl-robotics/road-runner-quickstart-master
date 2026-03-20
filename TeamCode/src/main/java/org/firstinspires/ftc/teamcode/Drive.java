@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.utilities.GlobalVars;
+import org.firstinspires.ftc.teamcode.utilities.Team;
 
 @Config
 @TeleOp
@@ -30,6 +31,11 @@ public class Drive extends Init{
     public static double down_pos;
 
     public static double up_pos;
+
+    @Override
+    public void setTeam(){
+        Team.set(Team.BLUE);
+    }
 
     @Override
     public void extraInit(){
