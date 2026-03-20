@@ -9,7 +9,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
-@Autonomous
+@Autonomous(preselectTeleOp = "Drive")
 public class BlueAuto extends AutoInit{
     private TrajectoryActionBuilder traj1;
     private TrajectoryActionBuilder traj2;
