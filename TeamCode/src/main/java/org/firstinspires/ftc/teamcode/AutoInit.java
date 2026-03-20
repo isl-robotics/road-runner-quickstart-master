@@ -91,7 +91,7 @@ public abstract class AutoInit extends Init{
     protected class PrepLauncher implements Action{
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            launcherController.setVelocity(1760);
+            launcherController.setVelocity(launchingControlPoints.get(321));
             return false;
         }
     }
@@ -129,7 +129,7 @@ public abstract class AutoInit extends Init{
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
             gateMotor.setPower(-1);
             intakeMotor.setPower(1);
-            pause(3);
+            pause(1.7);
             return false;
         }
     }
