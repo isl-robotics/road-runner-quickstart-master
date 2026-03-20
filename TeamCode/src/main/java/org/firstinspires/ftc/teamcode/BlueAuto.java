@@ -71,6 +71,7 @@ public class BlueAuto extends AutoInit{
     protected void runStrategy() {
         Actions.runBlocking(
                 new SequentialAction(
+                        prepLauncher(),
                         traj1.build(),
                         startLauncher(),
                         openGate(),
@@ -102,7 +103,6 @@ public class BlueAuto extends AutoInit{
                         closeGate(),
                         traj8.build(),
                         traj9.build()
-
                 )
         );
     }

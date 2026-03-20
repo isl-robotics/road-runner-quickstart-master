@@ -88,6 +88,18 @@ public abstract class AutoInit extends Init{
         return new StopGate();
     }
 
+    protected class PrepLauncher implements Action{
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            launcherController.setVelocity(1760);
+            return false;
+        }
+    }
+
+    protected Action prepLauncher(){
+        return new PrepLauncher();
+    }
+
     protected class StartLauncher implements Action{
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
