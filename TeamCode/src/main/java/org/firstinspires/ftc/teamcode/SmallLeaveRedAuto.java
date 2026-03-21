@@ -22,8 +22,7 @@ public class SmallLeaveRedAuto extends AutoInit{
     @Override
     public void extraInit(){
         Pose2d beginPose = new Pose2d(61,  -14.5, Math.PI);
-        Pose2d startPose = new Pose2d(61,  14.5, Math.PI);
-        MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
+        MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
 
         traj1 = drive.actionBuilder(beginPose)
                 .strafeToConstantHeading(new Vector2d(58, -14.5-26))
