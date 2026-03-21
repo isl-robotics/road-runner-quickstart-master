@@ -218,7 +218,7 @@ public final class MecanumDrive {
             module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
         }
 
-                leftFront = hardwareMap.get(DcMotorEx.class, "FrontLeftMotor");
+        leftFront = hardwareMap.get(DcMotorEx.class, "FrontLeftMotor");
         leftBack = hardwareMap.get(DcMotorEx.class, "BackLeftMotor");
         rightBack = hardwareMap.get(DcMotorEx.class, "BackRightMotor");
         rightFront = hardwareMap.get(DcMotorEx.class, "FrontRightMotor");

@@ -37,14 +37,14 @@ public class BlueAuto extends AutoInit{
 
         traj2 = traj1.endTrajectory().fresh()
              //   .splineToLinearHeading(new Pose2d(mmToIn(900), -38,-Math.toRadians(90)), -Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(mmToIn(860), -30,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
-                .splineToLinearHeading(new Pose2d(mmToIn(860), -50,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
+                .splineToLinearHeading(new Pose2d(mmToIn(920), -30,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
+                .splineToLinearHeading(new Pose2d(mmToIn(920), -50,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
 
         //  .waitSeconds(0.3)
                 ;
 
         traj3 = traj2.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(860),-50),new TranslationalVelConstraint(25))
+                .strafeToConstantHeading(new Vector2d(mmToIn(920),-50),new TranslationalVelConstraint(25))
          //       .waitSeconds(0.2)
                 ;
 

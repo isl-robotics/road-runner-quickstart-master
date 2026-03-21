@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.utilities.Team;
 
 @Config
 @TeleOp
-public class Drive extends Init{
+public class RedDrive extends Init{
 
     public static double limiter = 1;
     public static double fps = 24;
@@ -34,7 +34,7 @@ public class Drive extends Init{
 
     @Override
     public void setTeam(){
-        Team.set(Team.BLUE);
+        Team.set(Team.RED);
     }
 
     @Override
