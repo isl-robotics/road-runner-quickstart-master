@@ -5,6 +5,8 @@ import android.util.Size;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.arcrobotics.ftclib.util.InterpLUT;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -48,7 +50,6 @@ public abstract class Init extends LinearOpMode {
     protected MecanumDrivetrainController mecanumDrivetrainController;
 
     protected GoBildaPinpointDriver pinpointComputer;
-    protected double alignmentPower;
     protected PinpointLocalizer pinpointLocalizer;
 
     public void extraInit(){}
@@ -86,7 +87,6 @@ public abstract class Init extends LinearOpMode {
         initLauncherControlPoints();
         initActions();
         initCamera();
-        initPinpointComputer();
 
         extraInit();
 
@@ -182,6 +182,7 @@ public abstract class Init extends LinearOpMode {
     }
 
     public Pair<Double, Boolean> alignToGoal(){
+        /*
         Pair<Double, Double> distAndBearing = aprilTagDetector.getGoalDistAndBearing();
         if (distAndBearing != null) {
             double error = -distAndBearing.second-4d;
@@ -194,6 +195,28 @@ public abstract class Init extends LinearOpMode {
             alignmentPower = 0;
             return null;
         }
+         */
+
+        pinpointLocalizer.update();
+        Pose2d robotPose = pinpointLocalizer.getPose();
+
+        Vector2d goalPos = new Vector2d(-64, -60);
+        if(Team.get() == Team.RED){
+            goalPos = new Vector2d(-64, 60);
+        }
+
+        double targetHeading = Math.atan2(goalPos.y-robotPose.position.y, goalPos.x-robotPose.position.x);
+
+        double errorAngle = Math.toDegrees(robotPose.heading.toDouble()-targetHeading);
+        if(errorAngle > 180){
+            errorAngle -= 360;
+        }else if(errorAngle < -180){
+            errorAngle += 360;
+        }
+
+        double alignmentPower = goalAlignmentPID.compute(errorAngle);
+
+        return new Pair<>(alignmentPower, goalAlignmentPID.isDone());
     }
 
     public void launchAtDist(double tagDist){

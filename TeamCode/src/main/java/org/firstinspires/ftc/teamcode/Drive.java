@@ -138,8 +138,7 @@ public class Drive extends Init{
             }
 
             if (gamepad2.left_bumper){
-                alignToGoal();
-                rotationPower = alignmentPower;
+                rotationPower = alignToGoal().first;
             }
             if (gamepad2.dpad_down){
              //   gateServo.setPosition(down_pos);
