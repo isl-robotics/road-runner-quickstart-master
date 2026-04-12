@@ -40,6 +40,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.messages.DriveCommandMessage;
 import org.firstinspires.ftc.teamcode.messages.MecanumCommandMessage;
@@ -457,6 +458,11 @@ public final class MecanumDrive {
         
         
         return vel;
+    }
+
+    public Pose2d getPose(){
+        updatePoseEstimate();
+        return localizer.getPose();
     }
 
     private void drawPoseHistory(Canvas c) {

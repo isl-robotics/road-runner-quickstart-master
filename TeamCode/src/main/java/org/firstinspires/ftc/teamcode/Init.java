@@ -49,6 +49,7 @@ public abstract class Init extends LinearOpMode {
 
     protected GoBildaPinpointDriver pinpointComputer;
     protected double alignmentPower;
+    protected PinpointLocalizer pinpointLocalizer;
 
     public void extraInit(){}
 
@@ -74,7 +75,11 @@ public abstract class Init extends LinearOpMode {
         intakeMotor = hardwareMap.get(DcMotor.class, "IntakeMotor");
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        initPinpointComputer();
         mecanumDrivetrainController = new MecanumDrivetrainController(mecanumDrivetrain, pinpointComputer);
+
+        pinpointLocalizer = new PinpointLocalizer(hardwareMap, 0.0019558353279081, GlobalVars.robotPos);
+
         clock.reset();
 
         setTeam();

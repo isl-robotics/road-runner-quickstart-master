@@ -33,7 +33,7 @@ public class RedAuto2 extends AutoInit{
     @Override
     public void extraInit(){
         Pose2d beginPose = new Pose2d(-52.15,  -48.25, Math.toRadians(-135));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
+        drive = new MecanumDrive(hardwareMap, beginPose);
 
         traj1 = drive.actionBuilder(beginPose)
                 .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20), -Math.toRadians(140))

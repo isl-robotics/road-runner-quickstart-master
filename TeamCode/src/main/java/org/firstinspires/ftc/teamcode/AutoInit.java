@@ -6,9 +6,18 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import org.firstinspires.ftc.teamcode.utilities.GlobalVars;
 
 public abstract class AutoInit extends Init{
+
+    protected MecanumDrive drive;
+
+    @Override
+    protected void extraDeInit(){
+        GlobalVars.robotPos = drive.getPose();
+    }
+
     public double mmToIn (double mm){
         return mm*0.03937;
     }

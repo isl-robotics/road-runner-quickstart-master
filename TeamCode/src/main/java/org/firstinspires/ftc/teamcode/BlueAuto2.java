@@ -8,6 +8,8 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.utilities.GlobalVars;
+
 
 @Autonomous(preselectTeleOp = "Drive")
 public class BlueAuto2 extends AutoInit{
@@ -26,7 +28,7 @@ public class BlueAuto2 extends AutoInit{
     @Override
     public void extraInit(){
         Pose2d beginPose = new Pose2d(-52.15,  -48.25, Math.toRadians(-135));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
+        drive = new MecanumDrive(hardwareMap, beginPose);
 
         traj1 = drive.actionBuilder(beginPose)
                 .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20), -Math.toRadians(140))
