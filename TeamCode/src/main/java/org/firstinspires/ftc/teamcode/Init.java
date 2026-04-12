@@ -36,7 +36,6 @@ public abstract class Init extends LinearOpMode {
     protected DcMotor brMotor;
     protected DcMotor intakeMotor;
     protected DcMotor gateMotor;
-
     protected Servo gateServo;
 
     protected DcMotorEx launcherMotor1;
@@ -89,12 +88,16 @@ public abstract class Init extends LinearOpMode {
         waitForStart();
         runStrategy();
 
+        extraDeInit();
+
         mecanumDrivetrain.setZeroPowerBehaviour(DcMotor.ZeroPowerBehavior.BRAKE);
         mecanumDrivetrain.setDiagonals(0,0);
         stopVisionPortal();
     }
 
     protected abstract void runStrategy();
+
+    protected void extraDeInit() {}
 
     private void initCamera(){
         VisionPortal.Builder myVisionPortalBuilder = new VisionPortal.Builder();
