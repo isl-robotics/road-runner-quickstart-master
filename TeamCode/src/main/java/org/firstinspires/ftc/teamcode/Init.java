@@ -44,7 +44,7 @@ public abstract class Init extends LinearOpMode {
     protected DcMotorEx launcherMotor2;
     protected InterpLUT launchingControlPoints;
 
-    protected UniversalPID goalAlignmentPID = new UniversalPID(-0.08,0,-0.009, 0.5, 2);
+    protected UniversalPID goalAlignmentPID = new UniversalPID(0.04, 0, 0.0015);
     protected LauncherController launcherController;
     protected MecanumDrivetrain mecanumDrivetrain;
     protected MecanumDrivetrainController mecanumDrivetrainController;
