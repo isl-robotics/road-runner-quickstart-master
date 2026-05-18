@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 @Config
 @TeleOp
 public class LauncherTuning extends Init{
-    public static double highVelocity = 1700;
-    public static double lowVelocity = 1000;
+    public static double highVelocity = 0;
+    public static double lowVelocity = 0;
 
     double curSetVelocity = highVelocity;
 
@@ -38,7 +38,7 @@ public class LauncherTuning extends Init{
             }
 
             if (gamepad2.dpad_up){
-                angle += 0.05;
+                angle += 0.01;
 
             }
 
