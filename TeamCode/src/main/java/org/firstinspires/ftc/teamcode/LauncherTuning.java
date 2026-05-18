@@ -15,6 +15,8 @@ public class LauncherTuning extends Init{
 
     public static double f = 14;
     public static double p = 250;
+
+    public static double angle = 0;
     PIDFCoefficients pidfCoefficients;
 
     int stepIndex = 0;
@@ -34,6 +36,18 @@ public class LauncherTuning extends Init{
                     curSetVelocity = highVelocity;
                 }
             }
+
+            if (gamepad2.dpad_up){
+                angle += 0.05;
+
+            }
+
+            if (gamepad2.dpad_down){
+                angle -= 0.05;
+            }
+
+            kickerServo.setPosition(angle);
+
             pidfCoefficients = new PIDFCoefficients(p, 0, 0, f);
             launcherController.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);
 
@@ -42,6 +56,7 @@ public class LauncherTuning extends Init{
             double curVelocity = launcherController.getVelocity();
             double error = curVelocity - curSetVelocity;
 
+            telemetry.addData("Angle", angle);
             telemetry.addData("Set velocity", curSetVelocity);
             telemetry.addData("Current velocity", curVelocity);
             telemetry.addData("Error velocity", error);

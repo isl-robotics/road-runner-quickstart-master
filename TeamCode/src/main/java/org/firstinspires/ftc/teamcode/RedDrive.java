@@ -142,11 +142,11 @@ public class RedDrive extends Init{
             }
             if (gamepad2.dpad_down){
              //   gateServo.setPosition(down_pos);
-                gateServo.setPosition(0.2);
+                kickerServo.setPosition(0.2);
             }
             if (gamepad2.dpad_up){
             //    gateServo.setPosition(up_pos);
-                gateServo.setPosition(0.07);
+                kickerServo.setPosition(0.07);
             }
             if (gamepad1.aWasPressed()){
                 pinpointComputer.resetPosAndIMU();

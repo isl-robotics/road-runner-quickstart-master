@@ -25,7 +25,7 @@ public abstract class AutoInit extends Init{
     protected class OpenGate implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            gateServo.setPosition(0.07);
+            kickerServo.setPosition(0.07);
             return false;
         }
     }
@@ -37,7 +37,7 @@ public abstract class AutoInit extends Init{
     protected class CloseGate implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            gateServo.setPosition(0.2);
+            kickerServo.setPosition(0.2);
             return false;
         }
     }

@@ -14,7 +14,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.hardware.LauncherController;
@@ -38,7 +37,8 @@ public abstract class Init extends LinearOpMode {
     protected DcMotor brMotor;
     protected DcMotor intakeMotor;
     protected DcMotor gateMotor;
-    protected Servo gateServo;
+    protected Servo kickerServo;
+
 
     protected DcMotorEx launcherMotor1;
     protected DcMotorEx launcherMotor2;
@@ -69,7 +69,7 @@ public abstract class Init extends LinearOpMode {
         launcherMotor2 = hardwareMap.get(DcMotorEx.class, "LauncherMotor2");
 
         gateMotor = hardwareMap.get(DcMotor.class, "GateMotor");
-        gateServo = hardwareMap.get(Servo.class, "Gate");
+        kickerServo = hardwareMap.get(Servo.class, "Kicker");
 
         launcherController = new LauncherController(launcherMotor1, launcherMotor2, gateMotor);
 

@@ -89,8 +89,10 @@ public class Drive extends Init{
             }
             
             if (gamepad2.b){
-                launcherController.setVelocity(-500);
+             //   kickerServo.setPosition();
             }
+
+
 
 
             intake = (gamepad2.left_trigger-gamepad2.right_trigger+gamepad1.left_trigger);
@@ -142,11 +144,11 @@ public class Drive extends Init{
             }
             if (gamepad2.dpad_down){
              //   gateServo.setPosition(down_pos);
-                gateServo.setPosition(0.2);
+                kickerServo.setPosition(0.2);
             }
             if (gamepad2.dpad_up){
             //    gateServo.setPosition(up_pos);
-                gateServo.setPosition(0.07);
+                kickerServo.setPosition(0.07);
             }
             if (gamepad1.aWasPressed()){
                 pinpointComputer.resetPosAndIMU();
