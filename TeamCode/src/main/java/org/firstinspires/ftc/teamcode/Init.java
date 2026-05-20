@@ -184,6 +184,8 @@ public abstract class Init extends LinearOpMode {
     protected void lowerKicker(){kickerServo.setPosition(0.41);}
     protected void raiseKicker(){kickerServo.setPosition(0.6);}
 
+    protected void mediumKicker(){kickerServo.setPosition(0.5);}
+
     public Pair<Double, Boolean> alignToGoal(){
         /*
         Pair<Double, Double> distAndBearing = aprilTagDetector.getGoalDistAndBearing();

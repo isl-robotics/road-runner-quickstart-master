@@ -46,6 +46,9 @@ public class LauncherTuning extends Init{
                 raiseKicker();
 
             }
+            if (gamepad1.dpad_left){
+                mediumKicker();
+            }
 
             if (gamepad1.dpad_down){
             //    angle -= 0.05;
