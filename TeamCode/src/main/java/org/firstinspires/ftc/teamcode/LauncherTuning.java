@@ -8,13 +8,17 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 @Config
 @TeleOp
 public class LauncherTuning extends Init{
-    public static double highVelocity = 0;
-    public static double lowVelocity = 0;
+    public static double highVelocity = 1600;
+    public static double lowVelocity = 300;
 
     double curSetVelocity = highVelocity;
 
-    public static double f = 14;
-    public static double p = 250;
+    public static double f = 6;
+    public static double p = 350;
+
+    public static double i = 3.5;
+
+    public static double d = 0.5;
 
     public static double angle = 0;
     PIDFCoefficients pidfCoefficients;
@@ -23,7 +27,7 @@ public class LauncherTuning extends Init{
 
     @Override
     public void extraInit() {
-        pidfCoefficients = new PIDFCoefficients(p,0,0,f);
+        pidfCoefficients = new PIDFCoefficients(p,i,d,f);
     }
 
     @Override
@@ -37,18 +41,20 @@ public class LauncherTuning extends Init{
                 }
             }
 
-            if (gamepad2.dpad_up){
-                angle += 0.01;
+            if (gamepad1.dpad_up){
+              //  angle += 0.01;
+                raiseKicker();
 
             }
 
-            if (gamepad2.dpad_down){
-                angle -= 0.05;
+            if (gamepad1.dpad_down){
+            //    angle -= 0.05;
+                lowerKicker();
             }
 
-            kickerServo.setPosition(angle);
+//            kickerServo.setPosition(angle);
 
-            pidfCoefficients = new PIDFCoefficients(p, 0, 0, f);
+            pidfCoefficients = new PIDFCoefficients(p, i, d, f);
             launcherController.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);
 
             launcherController.setVelocity(curSetVelocity);

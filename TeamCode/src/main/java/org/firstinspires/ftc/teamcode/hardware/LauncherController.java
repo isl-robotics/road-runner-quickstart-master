@@ -24,8 +24,8 @@ public class LauncherController {
         launcherMotor1.setDirection(DcMotorEx.Direction.REVERSE);
         launcherMotor2.setDirection(DcMotorEx.Direction.REVERSE);
 
-        launcherMotor1.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(250,0,0,13.8));
-        launcherMotor2.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(250,0,0,13.8));
+        launcherMotor1.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(350,3.5,0.5,6));
+        launcherMotor2.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(350,3.5,0.5,6));
     }
 
     public void setVelocity(double angularRate){
