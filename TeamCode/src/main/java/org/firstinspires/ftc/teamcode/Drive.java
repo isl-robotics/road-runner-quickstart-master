@@ -32,6 +32,11 @@ public class Drive extends Init{
 
     public static double up_pos;
 
+    double start = clock.seconds();
+    double now = clock.seconds();
+
+    boolean launchSequence = false;
+
     @Override
     public void setTeam(){
         Team.set(Team.BLUE);
@@ -87,13 +92,13 @@ public class Drive extends Init{
                 launcherController.gateMotor.setPower(0.5);
                 intakeMotor.setPower(-0.5);
             }
-            
+
             if (gamepad2.b){
                 raiseKicker();
-            }else {
-             //   kickerServo.setPosition(0.5);
+            } else if (!launchSequence) {
                 lowerKicker();
             }
+
 
 
 
@@ -172,6 +177,30 @@ public class Drive extends Init{
                 launcherController.setVelocity(GlobalVars.defaultLauncherSpeed);
             }
              */
+
+            if (gamepad2.y && !launchSequence) {
+                launchSequence = true;
+                start = clock.seconds();
+            }
+            if (launchSequence){
+                raiseKicker();
+                now = clock.seconds()-start;
+                if (now >= 0.7)
+                {
+                    mediumKicker();
+                    gateMotor.setPower(-1);
+                }
+                if (now>=0.9) {
+                    gateMotor.setPower(-1);
+                    intakeMotor.setPower(1);
+                }
+                if (now>=1.5){
+                    gateMotor.setPower(0);
+                    intakeMotor.setPower(0);
+
+                    launchSequence = false;
+                }
+            }
 
             //telemetry.update();
             pause(0.02);
