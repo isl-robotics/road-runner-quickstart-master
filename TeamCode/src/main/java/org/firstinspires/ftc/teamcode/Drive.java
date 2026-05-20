@@ -143,7 +143,8 @@ public class Drive extends Init{
             }
 
             if (gamepad2.left_bumper){
-                rotationPower = alignToGoal().first;
+              //  rotationPower = alignToGoal().first;
+                launcherController.setVelocity(GlobalVars.defaultLauncherSpeed);
             }
             if (gamepad2.dpad_down){
              //   gateServo.setPosition(down_pos);
@@ -165,9 +166,12 @@ public class Drive extends Init{
 
             if (gamepad2.right_bumper && (goalDistAndBearing != null)){
                 launchAtDist(goalDistAndBearing.first);
-            } else {
+            }
+            /*
+            else {
                 launcherController.setVelocity(GlobalVars.defaultLauncherSpeed);
             }
+             */
 
             //telemetry.update();
             pause(0.02);
