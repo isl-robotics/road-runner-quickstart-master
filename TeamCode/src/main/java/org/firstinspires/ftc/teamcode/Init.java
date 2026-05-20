@@ -227,17 +227,13 @@ public abstract class Init extends LinearOpMode {
         double speed = launchingControlPoints.get(tagDist);
         speed = Math.round(speed/20)*20;  // Round to nearest 20
         launcherController.setVelocity(speed);
-        /*
+/*
         double start = clock.seconds();
         double now = clock.seconds();
-        while((Math.abs(launcherController.launcherMotor.getVelocity()-speed)>30) && opModeIsActive() && (now-start < 3)){
+        while((Math.abs(launcherController.getVelocity()-speed)>30) && opModeIsActive() && (now-start < 3)){
             pause(.02);
             now= clock.seconds();
         }
-        gate.setPosition(0.4);
-        pause(0.2);
-        intakeMotor.setPower(-1);
-        pause(0.5);
-         */
+        */
     }
 }
