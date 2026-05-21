@@ -151,7 +151,7 @@ public abstract class AutoInit extends Init{
             boolean launchSequence = true;
             double start = clock.seconds();
             double now;
-            while(launchSequence){
+            while(launchSequence && opModeIsActive()){
                 raiseKicker();
                 now = clock.seconds()-start;
                 if (now >= 0.7)
@@ -169,6 +169,7 @@ public abstract class AutoInit extends Init{
 
                     launchSequence = false;
                 }
+                pause(0.01);
             }
             return false;
         }
