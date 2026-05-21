@@ -22,29 +22,41 @@ public abstract class AutoInit extends Init{
         return mm*0.03937;
     }
 
-    protected class OpenGate implements Action {
+    protected class LowerKicker implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            kickerServo.setPosition(0.07);
+            kickerServo.setPosition(0.41);
             return false;
         }
     }
 
-    protected Action openGate(){
-        return new OpenGate();
+    protected Action lowerKickerAction(){
+        return new LowerKicker();
     }
 
-    protected class CloseGate implements Action {
+    protected class RaiseKicker implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            kickerServo.setPosition(0.2);
+            kickerServo.setPosition(0.6);
             return false;
         }
     }
 
 
-    protected Action closeGate(){
-        return new CloseGate();
+    protected Action raiseKickerAction(){
+        return new RaiseKicker();
+    }
+
+    protected class MediumKicker implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            kickerServo.setPosition(0.5);
+            return false;
+        }
+    }
+
+    protected Action mediumKickerAction(){
+        return new MediumKicker();
     }
 
     protected class Intake implements Action {

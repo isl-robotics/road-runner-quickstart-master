@@ -8,8 +8,6 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.utilities.GlobalVars;
-
 
 @Autonomous(preselectTeleOp = "Drive")
 public class BlueAuto2 extends AutoInit{
@@ -85,35 +83,35 @@ public class BlueAuto2 extends AutoInit{
                         prepLauncher(),
                         traj1.build(),
                         startLauncher(),
-                        openGate(),
+                        lowerKickerAction(),
                         launch(),
-                        closeGate(),
+                        raiseKickerAction(),
                         traj2.build(),
                     //    intake(),
                         traj3.build(),
                     //    stopIntake(),
                         traj4.build(),
                         startLauncher(),
-                        openGate(),
+                        lowerKickerAction(),
                         launch(),
                     //    stopLauncher(),
                     //    stopIntake(),
-                        closeGate(),
+                        raiseKickerAction(),
                         traj5.build(),
                         intake(),
                         traj6.build(),
                    //     stopIntake(),
                         traj7.build(),
                         startLauncher(),
-                        openGate(),
+                        lowerKickerAction(),
                         launch(),
-                        closeGate(),
+                        raiseKickerAction(),
                         traj8.build(),
                         traj9.build(),
                         startLauncher(),
-                        openGate(),
+                        lowerKickerAction(),
                         launch(),
-                        closeGate(),
+                        raiseKickerAction(),
                         traj10.build(),
                         stopLauncher(),
                         stopIntake()

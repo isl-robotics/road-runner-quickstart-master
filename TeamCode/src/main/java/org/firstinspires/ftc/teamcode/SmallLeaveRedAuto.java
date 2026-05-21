@@ -34,7 +34,7 @@ public class SmallLeaveRedAuto extends AutoInit{
         Actions.runBlocking(
                 new SequentialAction(
                         traj1.build(),
-                        closeGate()
+                        raiseKickerAction()
                 )
         );
     }
