@@ -221,6 +221,10 @@ public abstract class Init extends LinearOpMode {
 
         double alignmentPower = goalAlignmentPID.compute(errorAngle);
 
+        telemetry.addData("currentHeading", Math.toDegrees(robotPose.heading.toDouble()));
+        telemetry.addData("targetHeading", Math.toDegrees(targetHeading));
+        telemetry.addData("errorAngle", errorAngle);
+
         return new Pair<>(alignmentPower, goalAlignmentPID.isDone());
     }
 
