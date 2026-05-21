@@ -148,9 +148,28 @@ public abstract class AutoInit extends Init{
     protected class Launch implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            gateMotor.setPower(-1);
-            intakeMotor.setPower(1);
-            pause(1.7);
+            boolean launchSequence = true;
+            double start = clock.seconds();
+            double now;
+            while(launchSequence){
+                raiseKicker();
+                now = clock.seconds()-start;
+                if (now >= 0.7)
+                {
+                    mediumKicker();
+                    gateMotor.setPower(-1);
+                }
+                if (now>=0.9) {
+                    gateMotor.setPower(-1);
+                    intakeMotor.setPower(1);
+                }
+                if (now>=1.5){
+                    gateMotor.setPower(0);
+                    intakeMotor.setPower(0);
+
+                    launchSequence = false;
+                }
+            }
             return false;
         }
     }
