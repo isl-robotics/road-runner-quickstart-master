@@ -183,22 +183,21 @@ public class Drive extends Init{
                 start = clock.seconds();
             }
             if (launchSequence){
-                raiseKicker();
                 now = clock.seconds()-start;
-                if (now >= 0.7)
-                {
-                    mediumKicker();
-                    gateMotor.setPower(-1);
-                }
-                if (now>=0.9) {
-                    gateMotor.setPower(-1);
-                    intakeMotor.setPower(1);
-                }
+
                 if (now>=1.5){
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
 
                     launchSequence = false;
+                } else if (now>=0.9) {
+                    gateMotor.setPower(-1);
+                    intakeMotor.setPower(1);
+                } else if (now >= 0.7) {
+                    mediumKicker();
+                    gateMotor.setPower(-1);
+                }else{
+                    raiseKicker();
                 }
             }
 
