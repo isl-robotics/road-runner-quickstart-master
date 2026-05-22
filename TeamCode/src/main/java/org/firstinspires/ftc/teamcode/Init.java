@@ -4,7 +4,9 @@ import android.util.Pair;
 import android.util.Size;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.arcrobotics.ftclib.util.InterpLUT;
@@ -52,10 +54,13 @@ public abstract class Init extends LinearOpMode {
     protected GoBildaPinpointDriver pinpointComputer;
     protected PinpointLocalizer pinpointLocalizer;
 
+    protected FtcDashboard dashboard;
+
     public void extraInit(){}
 
     public void runOpMode(){
-        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        dashboard = FtcDashboard.getInstance();
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
         GlobalVars.opModeIsActiveGlobal = this::opModeIsActive;
         GlobalVars.telemetryGlobal = telemetry;
 
@@ -202,6 +207,9 @@ public abstract class Init extends LinearOpMode {
         }
          */
 
+        TelemetryPacket telemetryPacket = new TelemetryPacket();
+
+
         pinpointLocalizer.update();
         Pose2d robotPose = pinpointLocalizer.getPose();
 
@@ -221,9 +229,21 @@ public abstract class Init extends LinearOpMode {
 
         double alignmentPower = goalAlignmentPID.compute(errorAngle);
 
+        telemetry.addData("Robot X (in)", robotPose.position.x);
+        telemetry.addData("Robot Y (in)", robotPose.position.y);
         telemetry.addData("currentHeading", Math.toDegrees(robotPose.heading.toDouble()));
         telemetry.addData("targetHeading", Math.toDegrees(targetHeading));
         telemetry.addData("errorAngle", errorAngle);
+
+        Canvas c = telemetryPacket.fieldOverlay();
+
+        c.setStroke("#4CAF50");
+        Drawing.drawRobot(c, new Pose2d(robotPose.position, targetHeading));
+
+        c.setStroke("#3F51B5");
+        Drawing.drawRobot(c, robotPose);
+
+        dashboard.sendTelemetryPacket(telemetryPacket);
 
         return new Pair<>(alignmentPower, goalAlignmentPID.isDone());
     }
