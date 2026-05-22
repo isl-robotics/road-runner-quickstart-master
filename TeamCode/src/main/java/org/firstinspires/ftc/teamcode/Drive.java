@@ -100,10 +100,6 @@ public class Drive extends Init{
                 lowerKicker();
             }
 
-
-
-
-
             intake = (gamepad2.left_trigger-gamepad2.right_trigger+gamepad1.left_trigger);
 
 
@@ -156,7 +152,6 @@ public class Drive extends Init{
             }
 
             if (gamepad2.left_bumper){
-              //  rotationPower = alignToGoal().first;
                 launcherController.setVelocity(GlobalVars.defaultLauncherSpeed);
             }
             if (gamepad2.dpad_down){
