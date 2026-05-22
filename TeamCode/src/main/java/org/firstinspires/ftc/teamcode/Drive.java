@@ -67,19 +67,6 @@ public class Drive extends Init{
 
         while(opModeIsActive()) {
 
-            TelemetryPacket packet = new TelemetryPacket();
-
-            packet.fieldOverlay()
-                    .setStrokeWidth(1)
-                    .setStroke("green")
-                    .setFill("red")
-                    .setAlpha(1.0)
-                    .strokeRect(pinpointComputer.getPosX(DistanceUnit.MM)/25.4,pinpointComputer.getPosY(DistanceUnit.MM)/25.4, 4,4 )
-            ;
-
-
-            dashboard.sendTelemetryPacket(packet);
-
             if (fps != currentFPS){
                 FtcDashboard.getInstance().startCameraStream(visionPortal,fps);
                 currentFPS = fps;
@@ -204,7 +191,7 @@ public class Drive extends Init{
                 }
             }
 
-            //telemetry.update();
+            telemetry.update();
             pause(0.02);
         }
     }
