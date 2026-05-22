@@ -18,6 +18,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.hardware.LauncherController;
 import org.firstinspires.ftc.teamcode.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.teamcode.hardware.MecanumDrivetrainController;
@@ -164,8 +165,9 @@ public abstract class Init extends LinearOpMode {
 
     private void initPinpointComputer(){
         pinpointComputer = hardwareMap.get(GoBildaPinpointDriver.class, "PinpointComputer");
-        pinpointComputer.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        pinpointComputer.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.FORWARD); // TODO: find proper reversing for odometry
         pinpointComputer.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+        pinpointComputer.setOffsets(-90.752,-92.734, DistanceUnit.MM);
         //pinpointComputer.setOffsets(-13.5,-37.7, DistanceUnit.CM);
         //pinpointComputer.resetPosAndIMU();
     }
