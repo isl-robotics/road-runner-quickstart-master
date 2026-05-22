@@ -36,6 +36,7 @@ public class Drive extends Init{
     double now = clock.seconds();
 
     boolean launchSequence = false;
+    private Double alignmentPower;
 
     @Override
     public void setTeam(){
@@ -140,11 +141,18 @@ public class Drive extends Init{
 
             launcherController.gateMotor.setPower(gamepad2.left_stick_y);
 
-            if(gamepad2.leftBumperWasPressed()){
+            if(gamepad1.bWasPressed()){
                 goalAlignmentPID.setPID(kP,kI,kD);
                 if (goalDistAndBearing != null) {
                     goalAlignmentPID.reset(goalDistAndBearing.second);
                 }
+            }
+
+            if (gamepad1.b) {
+                alignmentPower = alignToGoal().first;
+                alignmentPower = 0d;
+            }else{
+                alignmentPower = 0d;
             }
 
             if (gamepad2.left_bumper){
@@ -164,9 +172,9 @@ public class Drive extends Init{
             }
 
             if (gamepad1.left_bumper) {
-                mecanumDrivetrain.setOrthoAbs(sidewaysPower, forwardPower, rotationPower, pinpointComputer.getHeading(AngleUnit.DEGREES));
+                mecanumDrivetrain.setOrthoAbs(sidewaysPower, forwardPower, rotationPower+alignmentPower, pinpointComputer.getHeading(AngleUnit.DEGREES));
             } else {
-                mecanumDrivetrain.setOrtho(sidewaysPower, forwardPower, rotationPower);
+                mecanumDrivetrain.setOrtho(sidewaysPower, forwardPower, rotationPower+alignmentPower);
             }
 
             if (gamepad2.right_bumper && (goalDistAndBearing != null)){
