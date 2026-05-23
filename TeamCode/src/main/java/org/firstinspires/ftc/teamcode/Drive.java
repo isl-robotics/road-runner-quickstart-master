@@ -22,7 +22,7 @@ public class Drive extends Init{
     public static boolean launching = true;
     public static boolean peter = false;
 
-    public static double kP,kI,kD;
+    public static double kP,kI,kD = 0d;
     private double forwardPower;
     private double rotationPower;
     private double sidewaysPower;
@@ -125,7 +125,7 @@ public class Drive extends Init{
             launcherController.gateMotor.setPower(gamepad2.left_stick_y);
 
             if(gamepad1.bWasPressed()){
-                goalAlignmentPID.setPID(kP,kI,kD);
+                goalAlignmentPID.setPID(kP,kI,kD); // This is to tune the PID, remove when PID is tuned and instead uncomment line 89 of Init
                 if (goalDistAndBearing != null) {
                     goalAlignmentPID.reset(goalDistAndBearing.second);
                 }
@@ -133,7 +133,7 @@ public class Drive extends Init{
 
             if (gamepad1.b) {
                 alignmentPower = alignToGoal().first;
-                alignmentPower = 0d;
+                alignmentPower = 0d; // Remove to make the robot actually try to align, only remove when you know the odometry works
             }else{
                 alignmentPower = 0d;
             }
