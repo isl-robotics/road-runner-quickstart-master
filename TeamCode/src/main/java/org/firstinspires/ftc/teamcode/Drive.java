@@ -132,6 +132,10 @@ public class Drive extends Init{
                 alignmentPower = 0d;
             }
 
+            if (gamepad2.x){
+                launcherController.setVelocity(200);
+            }
+
             if (gamepad2.left_bumper){
                 launcherController.setVelocity(GlobalVars.defaultLauncherSpeed);
             }
