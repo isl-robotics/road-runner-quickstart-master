@@ -166,7 +166,7 @@ public abstract class Init extends LinearOpMode {
 
     private void initPinpointComputer(){
         pinpointComputer = hardwareMap.get(GoBildaPinpointDriver.class, "PinpointComputer");
-        pinpointComputer.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.FORWARD); // TODO: find proper reversing for odometry
+        pinpointComputer.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED); // TODO: find proper reversing for odometry
         pinpointComputer.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         pinpointComputer.setOffsets(-90.752,-92.734, DistanceUnit.MM);
         //pinpointComputer.setOffsets(-13.5,-37.7, DistanceUnit.CM);
@@ -234,6 +234,8 @@ public abstract class Init extends LinearOpMode {
 
         telemetry.addData("Robot X (in)", robotPose.position.x);
         telemetry.addData("Robot Y (in)", robotPose.position.y);
+        telemetry.addData("Encoder X (ticks)", pinpointComputer.getEncoderX());
+        telemetry.addData("Encoder Y (ticks)", pinpointComputer.getEncoderY());
         telemetry.addData("currentHeading", Math.toDegrees(robotPose.heading.toDouble()));
         telemetry.addData("targetHeading", Math.toDegrees(targetHeading));
         telemetry.addData("errorAngle", errorAngle);

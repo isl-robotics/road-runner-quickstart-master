@@ -33,12 +33,11 @@ public final class PinpointLocalizer implements Localizer {
         //driver.setEncoderResolution(1 / mmPerTick, DistanceUnit.MM);
         //driver.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         //driver.setOffsets(mmPerTick * PARAMS.parYTicks, mmPerTick * PARAMS.perpXTicks, DistanceUnit.MM);
-        driver.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.FORWARD); // TODO: find proper reversing for odometry
         driver.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         driver.setOffsets(-90.752,-92.734, DistanceUnit.MM);
 
-        initialParDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
-        initialPerpDirection = GoBildaPinpointDriver.EncoderDirection.FORWARD;
+        initialParDirection = GoBildaPinpointDriver.EncoderDirection.FORWARD;
+        initialPerpDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
 
         driver.setEncoderDirections(initialParDirection, initialPerpDirection);
 
