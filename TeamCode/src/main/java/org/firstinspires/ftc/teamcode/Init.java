@@ -47,7 +47,7 @@ public abstract class Init extends LinearOpMode {
     protected DcMotorEx launcherMotor2;
     protected InterpLUT launchingControlPoints;
 
-    protected UniversalPID goalAlignmentPID = new UniversalPID(0.04, 0, 0.0015);
+    protected UniversalPID goalAlignmentPID = new UniversalPID(0.045, 0, 0.0005);
     protected LauncherController launcherController;
     protected MecanumDrivetrain mecanumDrivetrain;
     protected MecanumDrivetrainController mecanumDrivetrainController;
@@ -86,7 +86,6 @@ public abstract class Init extends LinearOpMode {
         mecanumDrivetrainController = new MecanumDrivetrainController(mecanumDrivetrain, pinpointComputer);
 
         pinpointLocalizer = new PinpointLocalizer(hardwareMap, 0.0019558353279081, GlobalVars.robotPos);
-        //goalAlignmentPID.setPID(0d, 0d, 0d); // Put correct PID values
 
         clock.reset();
 

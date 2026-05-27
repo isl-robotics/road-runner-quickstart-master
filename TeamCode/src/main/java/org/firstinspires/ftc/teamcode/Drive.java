@@ -21,8 +21,6 @@ public class Drive extends Init{
     public static double fps = 24;
     public static boolean launching = true;
     public static boolean peter = false;
-
-    public static double kP,kI,kD = 0d;
     private double forwardPower;
     private double rotationPower;
     private double sidewaysPower;
@@ -100,7 +98,7 @@ public class Drive extends Init{
             rotationPower = rotationPower * limiter;
             sidewaysPower = sidewaysPower * limiter;
 
-            pinpointComputer.update();
+            //pinpointComputer.update();
 
             /*
             telemetry.addData("pinX",pinpointComputer.getPosX(DistanceUnit.CM));
@@ -125,16 +123,12 @@ public class Drive extends Init{
             launcherController.gateMotor.setPower(gamepad2.left_stick_y);
 
             if(gamepad1.bWasPressed()){
-                goalAlignmentPID.setPID(kP,kI,kD); // This is to tune the PID, remove when PID is tuned and instead uncomment line 89 of Init
-                if (goalDistAndBearing != null) {
-                    goalAlignmentPID.reset(goalDistAndBearing.second);
-                }
+                goalAlignmentPID.reset(0);
             }
 
             if (gamepad1.b) {
                 alignmentPower = alignToGoal().first;
-                alignmentPower = 0d; // Remove to make the robot actually try to align, only remove when you know the odometry works
-            }else{
+            } else {
                 alignmentPower = 0d;
             }
 
