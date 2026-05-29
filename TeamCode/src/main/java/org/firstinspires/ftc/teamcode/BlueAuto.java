@@ -22,9 +22,6 @@ public class BlueAuto extends AutoInit{
     private TrajectoryActionBuilder traj9;
     private TrajectoryActionBuilder traj10;
     private TrajectoryActionBuilder traj11;
-    private TrajectoryActionBuilder traj12;
-
-
 
     @Override
     public void extraInit(){
@@ -95,37 +92,31 @@ public class BlueAuto extends AutoInit{
                         prepLauncher(),
                         traj1.build(),
                         startLauncher(),
-                        lowerKickerAction(),
                         launch(),
                        // stopLauncher(),
                     //    stopIntake(),
-                        raiseKickerAction(),
                         traj2.build(),
                    //     intake(),
                         traj3.build(),
                     //    stopIntake(),
                         traj4.build(),
                    //     startLauncher(),
-                        lowerKickerAction(),
                         launch(),
                     //    stopLauncher(),
                     //    stopIntake(),
-                        raiseKickerAction(),
                         traj5.build(),
                         intake(),
                         traj6.build(),
                    //     stopIntake(),
                         traj7.build(),
                    //     startLauncher(),
-                        lowerKickerAction(),
                         launch(),
                      //   stopLauncher(),
                      //   stopIntake(),
-                        raiseKickerAction(),
                         traj8.build(),
                         traj9.build(),
                         traj10.build(),
-                     //   startLauncher(),
+                        startLauncher(),
                         lowerKickerAction(),
                         launch(),
                         raiseKickerAction(),
