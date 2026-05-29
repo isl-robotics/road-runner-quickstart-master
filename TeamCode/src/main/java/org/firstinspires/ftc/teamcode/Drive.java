@@ -147,9 +147,11 @@ public class Drive extends Init{
             //    gateServo.setPosition(up_pos);
             //    kickerServo.setPosition(0.07);
             }
+            /*
             if (gamepad1.aWasPressed()){
                 pinpointComputer.resetPosAndIMU();
             }
+            */
 
             if (gamepad1.left_bumper) {
                 mecanumDrivetrain.setOrthoAbs(sidewaysPower, forwardPower, rotationPower+alignmentPower, pinpointComputer.getHeading(AngleUnit.DEGREES));
