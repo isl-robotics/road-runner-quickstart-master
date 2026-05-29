@@ -240,7 +240,7 @@ public final class MecanumDrive {
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
         if(Team.get() == Team.RED){
-            pose = new Pose2d(pose.component1().x,-pose.component1().y,pose.component2().toDouble()); //TODO: MIRROR HEADING TOO
+            pose = new Pose2d(pose.component1().x,-pose.component1().y,2*Math.PI - pose.component2().toDouble());
         }
 
         localizer = new PinpointLocalizer(hardwareMap, PARAMS.inPerTick, pose);
