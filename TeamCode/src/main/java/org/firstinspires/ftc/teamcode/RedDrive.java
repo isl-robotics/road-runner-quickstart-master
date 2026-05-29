@@ -21,8 +21,6 @@ public class RedDrive extends Init{
     public static double fps = 24;
     public static boolean launching = true;
     public static boolean peter = false;
-
-    public static double kP,kI,kD;
     private double forwardPower;
     private double rotationPower;
     private double sidewaysPower;
@@ -31,6 +29,12 @@ public class RedDrive extends Init{
     public static double down_pos;
 
     public static double up_pos;
+
+    double start = clock.seconds();
+    double now = clock.seconds();
+
+    boolean launchSequence = false;
+    private Double alignmentPower;
 
     @Override
     public void setTeam(){
@@ -61,37 +65,25 @@ public class RedDrive extends Init{
 
         while(opModeIsActive()) {
 
-            TelemetryPacket packet = new TelemetryPacket();
-
-            packet.fieldOverlay()
-                    .setStrokeWidth(1)
-                    .setStroke("green")
-                    .setFill("red")
-                    .setAlpha(1.0)
-                    .strokeRect(pinpointComputer.getPosX(DistanceUnit.MM)/25.4,pinpointComputer.getPosY(DistanceUnit.MM)/25.4, 4,4 )
-            ;
-
-
-            dashboard.sendTelemetryPacket(packet);
-
             if (fps != currentFPS){
                 FtcDashboard.getInstance().startCameraStream(visionPortal,fps);
                 currentFPS = fps;
             }
 
-                forwardPower = -gamepad1.left_stick_y;
-                sidewaysPower = gamepad1.left_stick_x;
-                rotationPower = gamepad1.right_stick_x;
+            forwardPower = -gamepad1.left_stick_y;
+            sidewaysPower = gamepad1.left_stick_x;
+            rotationPower = gamepad1.right_stick_x;
 
             if (gamepad2.a){
                 launcherController.gateMotor.setPower(0.5);
                 intakeMotor.setPower(-0.5);
             }
-            
-            if (gamepad2.b){
-                launcherController.setVelocity(-500);
-            }
 
+            if (gamepad2.b){
+                raiseKicker();
+            } else if (!launchSequence) {
+                lowerKicker();
+            }
 
             intake = (gamepad2.left_trigger-gamepad2.right_trigger+gamepad1.left_trigger);
 
@@ -106,7 +98,7 @@ public class RedDrive extends Init{
             rotationPower = rotationPower * limiter;
             sidewaysPower = sidewaysPower * limiter;
 
-            pinpointComputer.update();
+            //pinpointComputer.update();
 
             /*
             telemetry.addData("pinX",pinpointComputer.getPosX(DistanceUnit.CM));
@@ -130,41 +122,74 @@ public class RedDrive extends Init{
 
             launcherController.gateMotor.setPower(gamepad2.left_stick_y);
 
-            if(gamepad2.leftBumperWasPressed()){
-                goalAlignmentPID.setPID(kP,kI,kD);
-                if (goalDistAndBearing != null) {
-                    goalAlignmentPID.reset(goalDistAndBearing.second);
-                }
+            if(gamepad1.bWasPressed()){
+                goalAlignmentPID.reset(0);
+            }
+
+            if (gamepad1.b) {
+                alignmentPower = alignToGoal().first;
+            } else {
+                alignmentPower = 0d;
+            }
+
+            if (gamepad2.x){
+                launcherController.setVelocity(200);
             }
 
             if (gamepad2.left_bumper){
-                rotationPower = alignToGoal().first;
+                launcherController.setVelocity(GlobalVars.defaultLauncherSpeed);
             }
             if (gamepad2.dpad_down){
-             //   gateServo.setPosition(down_pos);
-                kickerServo.setPosition(0.2);
+                //   gateServo.setPosition(down_pos);
+                //    kickerServo.setPosition(0.2);
             }
             if (gamepad2.dpad_up){
-            //    gateServo.setPosition(up_pos);
-                kickerServo.setPosition(0.07);
+                //    gateServo.setPosition(up_pos);
+                //    kickerServo.setPosition(0.07);
             }
             if (gamepad1.aWasPressed()){
                 pinpointComputer.resetPosAndIMU();
             }
 
             if (gamepad1.left_bumper) {
-                mecanumDrivetrain.setOrthoAbs(sidewaysPower, forwardPower, rotationPower, pinpointComputer.getHeading(AngleUnit.DEGREES));
+                mecanumDrivetrain.setOrthoAbs(sidewaysPower, forwardPower, rotationPower+alignmentPower, pinpointComputer.getHeading(AngleUnit.DEGREES));
             } else {
-                mecanumDrivetrain.setOrtho(sidewaysPower, forwardPower, rotationPower);
+                mecanumDrivetrain.setOrtho(sidewaysPower, forwardPower, rotationPower+alignmentPower);
             }
 
             if (gamepad2.right_bumper && (goalDistAndBearing != null)){
                 launchAtDist(goalDistAndBearing.first);
-            } else {
+            }
+            /*
+            else {
                 launcherController.setVelocity(GlobalVars.defaultLauncherSpeed);
             }
+             */
 
-            //telemetry.update();
+            if (gamepad2.y && !launchSequence) {
+                launchSequence = true;
+                start = clock.seconds();
+            }
+            if (launchSequence){
+                now = clock.seconds()-start;
+
+                if (now>=1.5){
+                    gateMotor.setPower(0);
+                    intakeMotor.setPower(0);
+
+                    launchSequence = false;
+                } else if (now>=0.9) {
+                    gateMotor.setPower(-1);
+                    intakeMotor.setPower(1);
+                } else if (now >= 0.7) {
+                    mediumKicker();
+                    gateMotor.setPower(-1);
+                }else{
+                    raiseKicker();
+                }
+            }
+
+            telemetry.update();
             pause(0.02);
         }
     }
