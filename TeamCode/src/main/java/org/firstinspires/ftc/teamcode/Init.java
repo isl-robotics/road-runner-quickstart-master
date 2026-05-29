@@ -215,9 +215,9 @@ public abstract class Init extends LinearOpMode {
         pinpointLocalizer.update();
         Pose2d robotPose = pinpointLocalizer.getPose();
 
-        Vector2d goalPos = new Vector2d(-64, -60);
+        Vector2d goalPos = new Vector2d(-60, -55);
         if(Team.get() == Team.RED){
-            goalPos = new Vector2d(-64, 60);
+            goalPos = new Vector2d(-60, 55);
         }
 
         double targetHeading = Math.atan2(goalPos.y-robotPose.position.y, goalPos.x-robotPose.position.x);
