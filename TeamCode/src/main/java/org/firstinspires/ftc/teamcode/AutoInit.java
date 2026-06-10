@@ -165,19 +165,20 @@ public abstract class AutoInit extends Init{
             double now;
             while(launchSequence && opModeIsActive()){
                 now = clock.seconds()-start;
-                if (now>=1.5){
+                if (now>=1.7){
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
 
                     launchSequence = false;
-                } else if (now>=0.9) {
+                } else if (now>=1.2) {
                     gateMotor.setPower(-1);
                     intakeMotor.setPower(1);
-                } else if (now >= 0.7) {
+                } else if (now >= 0.8) {
                     mediumKicker();
                     gateMotor.setPower(-1);
                 }else{
-                    raiseKicker();
+                   // raiseKicker();
+                    kickerServo.setPosition(0.6);
                 }
                 pause(0.01);
             }
@@ -192,7 +193,7 @@ public abstract class AutoInit extends Init{
     protected class StopLauncher implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            launcherController.setVelocity(0);
+            launcherController.setVelocity(100);
             return false;
         }
     }

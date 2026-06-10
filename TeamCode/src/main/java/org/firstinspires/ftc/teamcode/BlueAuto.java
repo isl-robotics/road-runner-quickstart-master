@@ -29,7 +29,7 @@ public class BlueAuto extends AutoInit{
         drive = new MecanumDrive(hardwareMap, beginPose);
 
         traj1 = drive.actionBuilder(beginPose)
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(160))
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(158))
                 .waitSeconds(1);
 
         traj2 = traj1.endTrajectory().fresh()
@@ -45,7 +45,7 @@ public class BlueAuto extends AutoInit{
                 ;
 
         traj4 = traj3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(160))
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(158))
                 .waitSeconds(0.5)
                 ;
 
