@@ -34,9 +34,8 @@ public class BlueAuto extends AutoInit{
 
         traj2 = traj1.endTrajectory().fresh()
              //   .splineToLinearHeading(new Pose2d(mmToIn(900), -38,-Math.toRadians(90)), -Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(mmToIn(920), -30,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
-                .splineToLinearHeading(new Pose2d(mmToIn(920), -50,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
-
+                .splineToLinearHeading(new Pose2d(mmToIn(920), -30,-Math.toRadians(90)), -Math.toRadians(90))
+                //.splineToLinearHeading(new Pose2d(mmToIn(920), -50,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
         //  .waitSeconds(0.3)
                 ;
 
@@ -96,11 +95,15 @@ public class BlueAuto extends AutoInit{
                        // stopLauncher(),
                     //    stopIntake(),
                         traj2.build(),
-                   //     intake(),
+                        lowerKickerAction(),
+                        intake(),
+                        intakeLauncher(),
+                        intakeGate(),
                         traj3.build(),
-                    //    stopIntake(),
+                        stopIntake(),
+                        stopGate(),
                         traj4.build(),
-                   //     startLauncher(),
+                        startLauncher(),
                         launch(),
                     //    stopLauncher(),
                     //    stopIntake(),

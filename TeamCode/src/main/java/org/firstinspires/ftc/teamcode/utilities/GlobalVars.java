@@ -27,5 +27,5 @@ public class GlobalVars {
 
     public static final int defaultLauncherSpeed = 0;
 
-    public static Pose2d robotPos = new Pose2d(61,  -14.5, Math.PI);
+    public static Pose2d robotPos = new Pose2d(63.5,  -15.75, Math.PI);
 }

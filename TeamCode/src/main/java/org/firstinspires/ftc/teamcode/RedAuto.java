@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.utilities.Team;
 
 
-@Autonomous(preselectTeleOp = "RedDrive")
+@Autonomous(preselectTeleOp = "Drive")
 public class RedAuto extends AutoInit{
     private TrajectoryActionBuilder traj1;
     private TrajectoryActionBuilder traj2;
@@ -32,7 +32,7 @@ public class RedAuto extends AutoInit{
 
     @Override
     public void extraInit(){
-        Pose2d beginPose = new Pose2d(61,  14.5, Math.PI);
+        Pose2d beginPose = new Pose2d(63.5,  -15.75, Math.PI);
         drive = new MecanumDrive(hardwareMap, beginPose);
 
         traj1 = drive.actionBuilder(beginPose)
@@ -99,37 +99,31 @@ public class RedAuto extends AutoInit{
                         prepLauncher(),
                         traj1.build(),
                         startLauncher(),
-                        lowerKickerAction(),
                         launch(),
                         // stopLauncher(),
                         //    stopIntake(),
-                        raiseKickerAction(),
                         traj2.build(),
                         //     intake(),
                         traj3.build(),
                         //    stopIntake(),
                         traj4.build(),
                         //     startLauncher(),
-                        lowerKickerAction(),
                         launch(),
                         //    stopLauncher(),
                         //    stopIntake(),
-                        raiseKickerAction(),
                         traj5.build(),
                         intake(),
                         traj6.build(),
                         //     stopIntake(),
                         traj7.build(),
                         //     startLauncher(),
-                        lowerKickerAction(),
                         launch(),
                         //   stopLauncher(),
                         //   stopIntake(),
-                        raiseKickerAction(),
                         traj8.build(),
                         traj9.build(),
                         traj10.build(),
-                        //   startLauncher(),
+                        startLauncher(),
                         lowerKickerAction(),
                         launch(),
                         raiseKickerAction(),

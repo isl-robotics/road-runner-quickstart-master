@@ -96,6 +96,8 @@ public abstract class Init extends LinearOpMode {
 
         extraInit();
 
+        lowerKicker();
+
         waitForStart();
         runStrategy();
 
