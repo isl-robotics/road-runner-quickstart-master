@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import android.util.Pair;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -64,6 +66,8 @@ public class Drive extends Init{
         double currentFPS = fps;
 
         while(opModeIsActive()) {
+
+            telemetryPacket = new TelemetryPacket();
 
             if (fps != currentFPS){
                 FtcDashboard.getInstance().startCameraStream(visionPortal,fps);
@@ -190,6 +194,22 @@ public class Drive extends Init{
                     raiseKicker();
                 }
             }
+
+            pinpointLocalizer.update();
+            Pose2d robotPose = pinpointLocalizer.getPose();
+
+            telemetry.addData("Robot X (in)", robotPose.position.x);
+            telemetry.addData("Robot Y (in)", robotPose.position.y);
+            telemetry.addData("Encoder X (ticks)", pinpointComputer.getEncoderX());
+            telemetry.addData("Encoder Y (ticks)", pinpointComputer.getEncoderY());
+            telemetry.addData("currentHeading", Math.toDegrees(robotPose.heading.toDouble()));
+
+            Canvas c = telemetryPacket.fieldOverlay();
+
+            c.setStroke("#3F51B5");
+            Drawing.drawRobot(c, robotPose);
+
+            dashboard.sendTelemetryPacket(telemetryPacket);
 
             telemetry.update();
             pause(0.02);

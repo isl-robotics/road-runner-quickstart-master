@@ -57,6 +57,8 @@ public abstract class Init extends LinearOpMode {
 
     protected FtcDashboard dashboard;
 
+    protected TelemetryPacket telemetryPacket;
+
     public void extraInit(){}
 
     public void runOpMode(){
@@ -211,9 +213,6 @@ public abstract class Init extends LinearOpMode {
         }
          */
 
-        TelemetryPacket telemetryPacket = new TelemetryPacket();
-
-
         pinpointLocalizer.update();
         Pose2d robotPose = pinpointLocalizer.getPose();
 
@@ -233,6 +232,7 @@ public abstract class Init extends LinearOpMode {
 
         double alignmentPower = goalAlignmentPID.compute(errorAngle);
 
+        /*
         telemetry.addData("Robot X (in)", robotPose.position.x);
         telemetry.addData("Robot Y (in)", robotPose.position.y);
         telemetry.addData("Encoder X (ticks)", pinpointComputer.getEncoderX());
@@ -240,16 +240,17 @@ public abstract class Init extends LinearOpMode {
         telemetry.addData("currentHeading", Math.toDegrees(robotPose.heading.toDouble()));
         telemetry.addData("targetHeading", Math.toDegrees(targetHeading));
         telemetry.addData("errorAngle", errorAngle);
+         */
 
         Canvas c = telemetryPacket.fieldOverlay();
 
         c.setStroke("#4CAF50");
         Drawing.drawRobot(c, new Pose2d(robotPose.position, targetHeading));
 
-        c.setStroke("#3F51B5");
-        Drawing.drawRobot(c, robotPose);
+        //c.setStroke("#3F51B5");
+        //Drawing.drawRobot(c, robotPose);
 
-        dashboard.sendTelemetryPacket(telemetryPacket);
+        //dashboard.sendTelemetryPacket(telemetryPacket);
 
         return new Pair<>(alignmentPower, goalAlignmentPID.isDone());
     }

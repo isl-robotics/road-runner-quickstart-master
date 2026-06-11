@@ -30,7 +30,7 @@ public class BlueAuto extends AutoInit{
 
         traj1 = drive.actionBuilder(beginPose)
                 .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(158))
-                .waitSeconds(1);
+                .waitSeconds(0.5);
 
         traj2 = traj1.endTrajectory().fresh()
              //   .splineToLinearHeading(new Pose2d(mmToIn(900), -38,-Math.toRadians(90)), -Math.toRadians(90))
@@ -50,32 +50,32 @@ public class BlueAuto extends AutoInit{
                 ;
 
         traj5 = traj4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(300), -30), -Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(mmToIn(270), -30), -Math.toRadians(90))
               //  .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
             //    .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
                 //.waitSeconds(1)
                 ;
 
         traj6 = traj5.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(300),-55),new TranslationalVelConstraint(25))
+                .strafeToConstantHeading(new Vector2d(mmToIn(270),-55),new TranslationalVelConstraint(25))
             //    .waitSeconds(0.2)
             ;
 
         traj7 = traj6.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(160))
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(158))
                 .waitSeconds(0.5)
                 ;
 
         traj8 = traj7.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(-300), -30), -Math.toRadians(90));
+                .strafeToLinearHeading(new Vector2d(mmToIn(-330), -28), -Math.toRadians(90));
         //   .strafeTo(new Vector2d(30, -20)) //CODE FOR LEAVING ZONE
              //   .splineToLinearHeading(new Pose2d(mmToIn(-300), -38, -Math.toRadians(90)), -Math.toRadians(90));
 
         traj9 = traj8.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(-300),-56),new TranslationalVelConstraint(25));
+                .strafeToConstantHeading(new Vector2d(mmToIn(-330),-55),new TranslationalVelConstraint(25));
 
         traj10 = traj9.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(-300), -22), -Math.toRadians(140))
+                .strafeToLinearHeading(new Vector2d(mmToIn(-300), -18), -Math.toRadians(140))
                 .waitSeconds(0.1);
 
         traj11 = traj10.endTrajectory().fresh()
@@ -88,41 +88,44 @@ public class BlueAuto extends AutoInit{
     protected void runStrategy() {
         Actions.runBlocking(
                 new SequentialAction(
+                        //PRE-LOADED BALLS
                         prepLauncher(),
                         traj1.build(),
-                        startLauncher(),
+                        //startLauncher(),
                         launch(),
-                       // stopLauncher(),
-                    //    stopIntake(),
+                        stopLauncher(),
+                        //1ST ROW
                         traj2.build(),
+                        intakeLauncher(),
                         lowerKickerAction(),
                         intake(),
-                        intakeLauncher(),
-                        intakeGate(),
                         traj3.build(),
                         stopIntake(),
-                        stopGate(),
+                        prepLauncher(),
                         traj4.build(),
-                        startLauncher(),
                         launch(),
-                    //    stopLauncher(),
-                    //    stopIntake(),
+                        stopLauncher(),
+                        //2ND ROW
                         traj5.build(),
+                        intakeLauncher(),
                         intake(),
                         traj6.build(),
-                   //     stopIntake(),
+                        stopIntake(),
+                        prepLauncher(),
                         traj7.build(),
-                   //     startLauncher(),
                         launch(),
-                     //   stopLauncher(),
-                     //   stopIntake(),
+                        stopLauncher(),
+                        //3RD ROW
                         traj8.build(),
-                        traj9.build(),
-                        traj10.build(),
-                        startLauncher(),
+                        intakeLauncher(),
                         lowerKickerAction(),
+                        intake(),
+                        traj9.build(),
+                        stopIntake(),
+                        prepLauncherClose(),
+                        traj10.build(),
                         launch(),
-                        raiseKickerAction(),
+                        //LEAVE TRIANGLE
                         traj11.build(),
                         stopLauncher(),
                         stopIntake()

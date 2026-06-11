@@ -1,16 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.TranslationalVelConstraint;
-import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.utilities.Team;
 
-@Autonomous(preselectTeleOp = "Drive")
-public class DoNothingBlueAuto extends AutoInit{
+
+@Autonomous(preselectTeleOp = "RedDrive")
+public class DoNothingRedAuto extends AutoInit{
+    @Override
+    public void setTeam(){
+        Team.set(Team.RED);
+    }
+
     @Override
     public void extraInit(){
         Pose2d beginPose = new Pose2d(61,  -14.5, Math.PI);

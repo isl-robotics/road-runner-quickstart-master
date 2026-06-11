@@ -65,7 +65,6 @@ public class LauncherTuning extends Init{
             double curVelocity = launcherController.getVelocity();
             double error = curVelocity - curSetVelocity;
 
-            telemetry.addData("Angle", angle);
             telemetry.addData("Set velocity", curSetVelocity);
             telemetry.addData("Current velocity", curVelocity);
             telemetry.addData("Error velocity", error);
