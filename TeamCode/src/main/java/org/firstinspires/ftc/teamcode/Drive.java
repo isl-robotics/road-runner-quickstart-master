@@ -7,6 +7,7 @@ import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -95,6 +96,17 @@ public class Drive extends Init{
             forwardPower = forwardPower * (1-gamepad1.right_trigger*0.8);
             rotationPower = rotationPower * (1-gamepad1.right_trigger*0.8);
             sidewaysPower = sidewaysPower * (1-gamepad1.right_trigger*0.8);
+
+            if(gamepad1.backWasPressed()){
+                if(Team.get() == Team.BLUE){
+                    pinpointLocalizer.setPose(new Pose2d(61,  -14.5, Math.PI));
+                }else{
+                    pinpointLocalizer.setPose(new Pose2d(61,  14.5, Math.PI));
+                }
+            }
+
+            pinpointLocalizer.update();
+            Pose2d robotPose = pinpointLocalizer.getPose();
 
             Pair<Double, Double> goalDistAndBearing = aprilTagDetector.getGoalDistAndBearing();
 
