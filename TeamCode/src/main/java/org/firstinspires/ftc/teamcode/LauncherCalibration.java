@@ -16,6 +16,7 @@ public class LauncherCalibration extends Init{
         FtcDashboard.getInstance().startCameraStream(visionPortal,0);
         //gate.setPosition(0.4);
         while(opModeIsActive()){
+            mediumKicker();
             double power = gamepad1.left_stick_y;
             double direction = gamepad1.right_stick_x;
             if(gamepad1.rightBumperWasPressed()){
@@ -48,9 +49,8 @@ public class LauncherCalibration extends Init{
 
             intakeMotor.setPower(gamepad1.left_trigger-gamepad1.right_trigger);
 
-            if(aprilTagDetector.isTagDetected(20)) {
-                telemetry.addData("Distance", aprilTagDetector.getTagById(20).ftcPose.y);
-            }
+            telemetry.addData("Distance", getGoalDist());
+
             telemetry.addData("Set Velocity", setVelocity);
             telemetry.addData("Current Velocity", launcherController.getVelocity());
 
