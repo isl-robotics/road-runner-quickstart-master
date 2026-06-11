@@ -29,7 +29,7 @@ public class BlueAuto extends AutoInit{
         drive = new MecanumDrive(hardwareMap, beginPose);
 
         traj1 = drive.actionBuilder(beginPose)
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(158))
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(155))
                 .waitSeconds(0.5);
 
         traj2 = traj1.endTrajectory().fresh()
@@ -40,7 +40,7 @@ public class BlueAuto extends AutoInit{
                 ;
 
         traj3 = traj2.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(920),-50),new TranslationalVelConstraint(25))
+                .strafeToConstantHeading(new Vector2d(mmToIn(920),-55),new TranslationalVelConstraint(25))
          //       .waitSeconds(0.2)
                 ;
 
@@ -50,14 +50,14 @@ public class BlueAuto extends AutoInit{
                 ;
 
         traj5 = traj4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(270), -30), -Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(mmToIn(280), -30), -Math.toRadians(90))
               //  .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
             //    .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
                 //.waitSeconds(1)
                 ;
 
         traj6 = traj5.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(270),-55),new TranslationalVelConstraint(25))
+                .strafeToConstantHeading(new Vector2d(mmToIn(280),-55),new TranslationalVelConstraint(25))
             //    .waitSeconds(0.2)
             ;
 
@@ -113,6 +113,7 @@ public class BlueAuto extends AutoInit{
                         stopIntake(),
                         prepLauncher(),
                         traj7.build(),
+                       // startLauncher(),
                         launch(),
                         stopLauncher(),
                         //3RD ROW
@@ -124,6 +125,7 @@ public class BlueAuto extends AutoInit{
                         stopIntake(),
                         prepLauncherClose(),
                         traj10.build(),
+                    //startLauncher(),
                         launch(),
                         //LEAVE TRIANGLE
                         traj11.build(),
