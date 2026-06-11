@@ -176,15 +176,15 @@ public abstract class AutoInit extends Init{
             double now;
             while(launchSequence && opModeIsActive()){
                 now = clock.seconds()-start;
-                if (now>=1.7){
+                if (now>=1.8){
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
-
                     launchSequence = false;
                 } else if (now>=1.2) {
+                    mediumKicker();
                     gateMotor.setPower(-1);
                     intakeMotor.setPower(1);
-                } else if (now >= 0.8) {
+                } else if (now >= 0.7) {
                     mediumKicker();
                     gateMotor.setPower(-1);
                 }else{
