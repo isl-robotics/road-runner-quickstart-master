@@ -461,7 +461,7 @@ public final class MecanumDrive {
     }
 
     public Pose2d getPose(){
-        updatePoseEstimate();
+        localizer.update();
         return localizer.getPose();
     }
 
