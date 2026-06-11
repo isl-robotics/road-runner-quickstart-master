@@ -255,6 +255,17 @@ public abstract class Init extends LinearOpMode {
         return new Pair<>(alignmentPower, goalAlignmentPID.isDone());
     }
 
+    public double getGoalDist(){
+        pinpointLocalizer.update();
+        Pose2d robotPose = pinpointLocalizer.getPose();
+
+        Vector2d goalPos = new Vector2d(-60, -55);
+        if(Team.get() == Team.RED){
+            goalPos = new Vector2d(-60, 55);
+        }
+        return 2.54*Math.sqrt(Math.pow(goalPos.y-robotPose.position.y, 2)+Math.pow(goalPos.x-robotPose.position.x, 2));
+    }
+
     public void launchAtDist(double tagDist){
         //double speed = (6*0.00001)*Math.pow(tagDist, 3)-0.0501*Math.pow(tagDist, 2)+13.511*tagDist+405.1;
         double speed = launchingControlPoints.get(tagDist);

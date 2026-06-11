@@ -175,8 +175,14 @@ public class Drive extends Init{
                 mecanumDrivetrain.setOrtho(sidewaysPower, forwardPower, rotationPower+alignmentPower);
             }
 
-            if (gamepad2.right_bumper && (goalDistAndBearing != null)){
-                launchAtDist(goalDistAndBearing.first);
+            if (gamepad2.right_bumper){
+                double goalDist = getGoalDist();
+                telemetry.addData("goalDist", goalDist);
+                if (goalDist<=380) {
+                    launchAtDist(goalDist);
+                }else{
+                    launcherController.setVelocity(0);
+                }
             }
             /*
             else {
