@@ -197,14 +197,14 @@ public class Drive extends Init{
             if (launchSequence){
                 now = clock.seconds()-start;
 
-                if (now>=1.5){
+                if (now>=1.8){
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
-
                     launchSequence = false;
-                } else if (now>=0.9) {
+                } else if (now>=1.1) {
                     gateMotor.setPower(-1);
                     intakeMotor.setPower(1);
+                    mediumKicker();
                 } else if (now >= 0.7) {
                     mediumKicker();
                     gateMotor.setPower(-1);
@@ -212,9 +212,6 @@ public class Drive extends Init{
                     raiseKicker();
                 }
             }
-
-            pinpointLocalizer.update();
-            Pose2d robotPose = pinpointLocalizer.getPose();
 
             telemetry.addData("Robot X (in)", robotPose.position.x);
             telemetry.addData("Robot Y (in)", robotPose.position.y);
