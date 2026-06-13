@@ -42,7 +42,6 @@ public abstract class AutoInit extends Init{
         }
     }
 
-
     protected Action raiseKickerAction(){
         return new RaiseKicker();
     }
@@ -112,13 +111,14 @@ public abstract class AutoInit extends Init{
     protected class PrepLauncherClose implements Action{
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            launcherController.setVelocity(launchingControlPoints.get(145));
+            launcherController.setVelocity(launchingControlPoints.get(120));
+        //    launcherController.setVelocity(200);
             return false;
         }
     }
 
     protected Action prepLauncherClose(){
-        return new PrepLauncher();
+        return new PrepLauncherClose();
     }
     protected class PrepLauncher implements Action{
         @Override
@@ -180,16 +180,17 @@ public abstract class AutoInit extends Init{
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
                     launchSequence = false;
-                } else if (now>=1.2) {
+                } else if (now>=0.8) {
                     mediumKicker();
                     gateMotor.setPower(-1);
                     intakeMotor.setPower(1);
-                } else if (now >= 0.7) {
+                } else if (now >= 0.6) {
                     mediumKicker();
                     gateMotor.setPower(-1);
                 }else{
                    // raiseKicker();
-                    kickerServo.setPosition(0.6);
+                    kickerServo.setPosition(0.7);
+                    gateMotor.setPower(0.3);
                 }
                 pause(0.01);
             }

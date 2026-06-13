@@ -30,7 +30,7 @@ public class BlueAuto2 extends AutoInit{
 
         traj1 = drive.actionBuilder(beginPose)
             //    .strafeToConstantHeading(new Vector2d(mmToIn(-300), -20))
-                .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20), -Math.toRadians(140));
+                .strafeToLinearHeading(new Vector2d(mmToIn(-250), -15), -Math.toRadians(135));
         ;
         traj2 = traj1.endTrajectory().fresh()
                 .waitSeconds(0.3)
@@ -39,26 +39,26 @@ public class BlueAuto2 extends AutoInit{
         //  .waitSeconds(0.3)
 
         traj3 = traj2.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(-300),-50),new TranslationalVelConstraint(25))
+                .strafeToConstantHeading(new Vector2d(mmToIn(-200),-55),new TranslationalVelConstraint(25))
              //   .waitSeconds(0.2)
                 ;
         traj4 = traj3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20),-Math.toRadians(140))
+                .strafeToLinearHeading(new Vector2d(mmToIn(-250), -15),-Math.toRadians(140))
                 //        .waitSeconds(0.5)
               ;
 
         traj5 = traj4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(295), -30), -Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(mmToIn(320), -30), -Math.toRadians(90))
                 //.waitSeconds(1)
                 ;
 
         traj6 = traj5.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(295),-60),new TranslationalVelConstraint(25))
-                .strafeToConstantHeading(new Vector2d(mmToIn(295),-50))
+                .strafeToConstantHeading(new Vector2d(mmToIn(320),-60),new TranslationalVelConstraint(25))
+                .strafeToConstantHeading(new Vector2d(mmToIn(320),-47))
           //      .waitSeconds(0.2)
                 ;
         traj7 = traj6.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20), -Math.toRadians(140))
+                .strafeToLinearHeading(new Vector2d(mmToIn(-250), -15), -Math.toRadians(140))
          //       .waitSeconds(0.5)
             ;
 
@@ -71,7 +71,7 @@ public class BlueAuto2 extends AutoInit{
             //    .waitSeconds(1)
                 ;
         traj10 = traj9.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(-300), -20), -Math.toRadians(140))
+                .strafeToLinearHeading(new Vector2d(mmToIn(-250), -15), -Math.toRadians(140))
           //      .waitSeconds(0.3)
                   ;
         traj11 = traj10.endTrajectory().fresh()
