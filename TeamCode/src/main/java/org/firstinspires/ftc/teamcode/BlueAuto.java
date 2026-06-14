@@ -118,10 +118,10 @@ public class BlueAuto extends AutoInit{
                        // startLauncher(),
                         launch(),
                         stopLauncher(),
+                        lowerKickerAction(),
                         //3RD ROW
                         traj8.build(),
                         intakeLauncher(),
-                        lowerKickerAction(),
                         intake(),
                         traj9.build(),
                         stopIntake(),

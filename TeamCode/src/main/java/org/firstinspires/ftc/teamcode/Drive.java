@@ -39,6 +39,11 @@ public class Drive extends Init{
     boolean launchSequence = false;
     private Double alignmentPower;
 
+    public static double kP = 0.045;
+    public static double kI = 0d;
+    public static double kD = 0.0005;
+
+
     @Override
     public void setTeam(){
         Team.set(Team.BLUE);
@@ -139,6 +144,7 @@ public class Drive extends Init{
             launcherController.gateMotor.setPower(gamepad2.left_stick_y);
 
             if(gamepad1.bWasPressed()){
+                goalAlignmentPID.setPID(kP, kI, kD);
                 goalAlignmentPID.reset(0);
             }
 
@@ -197,19 +203,20 @@ public class Drive extends Init{
             if (launchSequence){
                 now = clock.seconds()-start;
 
-                if (now>=2){
+                if (now>=1.8){
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
                     launchSequence = false;
-                } else if (now>=1.1) {
+                } else if (now>=0.8) {
                     gateMotor.setPower(-1);
                     intakeMotor.setPower(1);
                     mediumKicker();
-                } else if (now >= 0.7) {
+                } else if (now >= 0.6) {
                     mediumKicker();
                     gateMotor.setPower(-1);
                 }else{
                     raiseKicker();
+                    gateMotor.setPower(0.3);
                 }
             }
 
@@ -217,7 +224,7 @@ public class Drive extends Init{
             telemetry.addData("Robot Y (in)", robotPose.position.y);
             telemetry.addData("Encoder X (ticks)", pinpointComputer.getEncoderX());
             telemetry.addData("Encoder Y (ticks)", pinpointComputer.getEncoderY());
-            telemetry.addData("currentHeading", Math.toDegrees(robotPose.heading.toDouble()));
+            //telemetry.addData("currentHeading", Math.toDegrees(robotPose.heading.toDouble()));
 
             Canvas c = telemetryPacket.fieldOverlay();
 

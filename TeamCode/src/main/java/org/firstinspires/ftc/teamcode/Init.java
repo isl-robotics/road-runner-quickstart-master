@@ -47,7 +47,7 @@ public abstract class Init extends LinearOpMode {
     protected DcMotorEx launcherMotor2;
     protected InterpLUT launchingControlPoints;
 
-    protected UniversalPID goalAlignmentPID = new UniversalPID(0.045, 0, 0.0005);
+    protected UniversalPID goalAlignmentPID = new UniversalPID(0.022, 0.011, 0.0003);
     protected LauncherController launcherController;
     protected MecanumDrivetrain mecanumDrivetrain;
     protected MecanumDrivetrainController mecanumDrivetrainController;
@@ -215,9 +215,9 @@ public abstract class Init extends LinearOpMode {
         pinpointLocalizer.update();
         Pose2d robotPose = pinpointLocalizer.getPose();
 
-        Vector2d goalPos = new Vector2d(-60, -55);
+        Vector2d goalPos = new Vector2d(-60, -62.5);
         if(Team.get() == Team.RED){
-            goalPos = new Vector2d(-60, 55);
+            goalPos = new Vector2d(-60, 62.5);
         }
 
         double targetHeading = Math.atan2(goalPos.y-robotPose.position.y, goalPos.x-robotPose.position.x);
@@ -236,10 +236,11 @@ public abstract class Init extends LinearOpMode {
         telemetry.addData("Robot Y (in)", robotPose.position.y);
         telemetry.addData("Encoder X (ticks)", pinpointComputer.getEncoderX());
         telemetry.addData("Encoder Y (ticks)", pinpointComputer.getEncoderY());
+         */
         telemetry.addData("currentHeading", Math.toDegrees(robotPose.heading.toDouble()));
         telemetry.addData("targetHeading", Math.toDegrees(targetHeading));
         telemetry.addData("errorAngle", errorAngle);
-         */
+
 
         Canvas c = telemetryPacket.fieldOverlay();
 
