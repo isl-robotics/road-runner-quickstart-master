@@ -3,8 +3,11 @@ package org.firstinspires.ftc.teamcode;
 import android.util.Pair;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -34,7 +37,7 @@ public class RedDrive extends Init{
     double now = clock.seconds();
 
     boolean launchSequence = false;
-    private Double alignmentPower;
+    private double alignmentPower;
 
     @Override
     public void setTeam(){
@@ -65,6 +68,8 @@ public class RedDrive extends Init{
 
         while(opModeIsActive()) {
 
+            telemetryPacket = new TelemetryPacket();
+
             if (fps != currentFPS){
                 FtcDashboard.getInstance().startCameraStream(visionPortal,fps);
                 currentFPS = fps;
@@ -91,6 +96,17 @@ public class RedDrive extends Init{
             forwardPower = forwardPower * (1-gamepad1.right_trigger*0.8);
             rotationPower = rotationPower * (1-gamepad1.right_trigger*0.8);
             sidewaysPower = sidewaysPower * (1-gamepad1.right_trigger*0.8);
+
+            if(gamepad1.backWasPressed()){
+                if(Team.get() == Team.BLUE){
+                    pinpointLocalizer.setPose(new Pose2d(61,  -14.5, Math.PI));
+                }else{
+                    pinpointLocalizer.setPose(new Pose2d(61,  14.5, Math.PI));
+                }
+            }
+
+            pinpointLocalizer.update();
+            Pose2d robotPose = pinpointLocalizer.getPose();
 
             Pair<Double, Double> goalDistAndBearing = aprilTagDetector.getGoalDistAndBearing();
 
@@ -147,9 +163,11 @@ public class RedDrive extends Init{
                 //    gateServo.setPosition(up_pos);
                 //    kickerServo.setPosition(0.07);
             }
+            /*
             if (gamepad1.aWasPressed()){
                 pinpointComputer.resetPosAndIMU();
             }
+            */
 
             if (gamepad1.left_bumper) {
                 mecanumDrivetrain.setOrthoAbs(sidewaysPower, forwardPower, rotationPower+alignmentPower, pinpointComputer.getHeading(AngleUnit.DEGREES));
@@ -157,8 +175,14 @@ public class RedDrive extends Init{
                 mecanumDrivetrain.setOrtho(sidewaysPower, forwardPower, rotationPower+alignmentPower);
             }
 
-            if (gamepad2.right_bumper && (goalDistAndBearing != null)){
-                launchAtDist(goalDistAndBearing.first);
+            if (gamepad2.right_bumper){
+                double goalDist = getGoalDist();
+                telemetry.addData("goalDist", goalDist);
+                if (goalDist<=380) {
+                    launchAtDist(goalDist);
+                }else{
+                    launcherController.setVelocity(0);
+                }
             }
             /*
             else {
@@ -173,21 +197,35 @@ public class RedDrive extends Init{
             if (launchSequence){
                 now = clock.seconds()-start;
 
-                if (now>=1.5){
+                if (now>=1.8){
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
-
                     launchSequence = false;
-                } else if (now>=0.9) {
+                } else if (now>=0.8) {
                     gateMotor.setPower(-1);
                     intakeMotor.setPower(1);
-                } else if (now >= 0.7) {
+                    mediumKicker();
+                } else if (now >= 0.6) {
                     mediumKicker();
                     gateMotor.setPower(-1);
                 }else{
                     raiseKicker();
+                    gateMotor.setPower(0.3);
                 }
             }
+
+            telemetry.addData("Robot X (in)", robotPose.position.x);
+            telemetry.addData("Robot Y (in)", robotPose.position.y);
+            telemetry.addData("Encoder X (ticks)", pinpointComputer.getEncoderX());
+            telemetry.addData("Encoder Y (ticks)", pinpointComputer.getEncoderY());
+            //telemetry.addData("currentHeading", Math.toDegrees(robotPose.heading.toDouble()));
+
+            Canvas c = telemetryPacket.fieldOverlay();
+
+            c.setStroke("#3F51B5");
+            Drawing.drawRobot(c, robotPose);
+
+            dashboard.sendTelemetryPacket(telemetryPacket);
 
             telemetry.update();
             pause(0.02);
