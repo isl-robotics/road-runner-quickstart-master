@@ -29,7 +29,7 @@ public class BlueAuto extends AutoInit{
         drive = new MecanumDrive(hardwareMap, beginPose);
 
         traj1 = drive.actionBuilder(beginPose)
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(154))
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(156))
                 .waitSeconds(0.5)
             ;
 
@@ -46,24 +46,24 @@ public class BlueAuto extends AutoInit{
                 ;
 
         traj4 = traj3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(155))
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(156))
            //     .waitSeconds(0.5)
                 ;
 
         traj5 = traj4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(300), -30), -Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(mmToIn(340), -30), -Math.toRadians(90))
               //  .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
             //    .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
                 //.waitSeconds(1)
                 ;
 
         traj6 = traj5.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(300),-63))
+                .strafeToConstantHeading(new Vector2d(mmToIn(340),-63))
             //    .waitSeconds(0.2)
             ;
 
         traj7 = traj6.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(154))
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(156))
                 .waitSeconds(0.2)
                 ;
 

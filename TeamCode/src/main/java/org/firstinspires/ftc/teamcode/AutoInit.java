@@ -25,7 +25,7 @@ public abstract class AutoInit extends Init{
     protected class LowerKicker implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            kickerServo.setPosition(0.41);
+            kickerServo.setPosition(0.45);
             return false;
         }
     }
@@ -176,7 +176,7 @@ public abstract class AutoInit extends Init{
             double now;
             while(launchSequence && opModeIsActive()){
                 now = clock.seconds()-start;
-                if (now>=1.8){
+                if (now>=1.9){
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
                     launchSequence = false;

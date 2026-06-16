@@ -3,16 +3,13 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.utilities.Team;
-
 
 @Autonomous(preselectTeleOp = "Drive")
-public class RedAuto extends AutoInit{
+public class BlueAutoGate extends AutoInit{
     private TrajectoryActionBuilder traj1;
     private TrajectoryActionBuilder traj2;
     private TrajectoryActionBuilder traj3;
@@ -26,71 +23,64 @@ public class RedAuto extends AutoInit{
     private TrajectoryActionBuilder traj11;
 
     @Override
-    public void setTeam(){
-        Team.set(Team.RED);
-    }
-
-    @Override
     public void extraInit(){
-        Pose2d beginPose = new Pose2d(63.5,  -15.75, Math.PI);
+        Pose2d beginPose = new Pose2d(61,  -14.5, Math.PI);
         drive = new MecanumDrive(hardwareMap, beginPose);
 
         traj1 = drive.actionBuilder(beginPose)
                 .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(156))
                 .waitSeconds(0.5)
-        ;
+            ;
 
         traj2 = traj1.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(mmToIn(920), -30),-Math.toRadians(90))
-        //      .splineToLinearHeading(new Pose2d(mmToIn(920), -30,-Math.toRadians(90)), -Math.toRadians(90))
+          //      .splineToLinearHeading(new Pose2d(mmToIn(920), -30,-Math.toRadians(90)), -Math.toRadians(90))
 
         //  .waitSeconds(0.3)
-        ;
+                ;
 
         traj3 = traj2.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(mmToIn(920),-63))
-        //       .waitSeconds(0.2)
-        ;
+         //       .waitSeconds(0.2)
+                ;
 
         traj4 = traj3.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(156))
-        //     .waitSeconds(0.5)
-        ;
+           //     .waitSeconds(0.5)
+                ;
 
         traj5 = traj4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(320), -30), -Math.toRadians(90))
-        //  .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
-        //    .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
-        //.waitSeconds(1)
-        ;
+                .strafeToLinearHeading(new Vector2d(mmToIn(200), -30), -Math.toRadians(90))
+              //  .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
+            //    .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
+                //.waitSeconds(1)
+                ;
 
         traj6 = traj5.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(320),-63))
-        //    .waitSeconds(0.2)
-        ;
+                .strafeToConstantHeading(new Vector2d(mmToIn(200),-63))
+            //    .waitSeconds(0.2)
+            ;
 
         traj7 = traj6.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(156))
                 .waitSeconds(0.2)
-        ;
+                ;
 
         traj8 = traj7.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(mmToIn(-330), -28), -Math.toRadians(90));
         //   .strafeTo(new Vector2d(30, -20)) //CODE FOR LEAVING ZONE
-        //   .splineToLinearHeading(new Pose2d(mmToIn(-300), -38, -Math.toRadians(90)), -Math.toRadians(90));
+             //   .splineToLinearHeading(new Pose2d(mmToIn(-300), -38, -Math.toRadians(90)), -Math.toRadians(90));
 
         traj9 = traj8.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(mmToIn(-330),-55));
 
         traj10 = traj9.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(-5.15, -13.13), -Math.toRadians(138))
-        //       .waitSeconds(0.1)
-        ;
+         //       .waitSeconds(0.1)
+               ;
 
         traj11 = traj10.endTrajectory().fresh()
-             //   .strafeTo(new Vector2d(-1,-20));
-                .strafeToLinearHeading(new Vector2d(-1, -20), -Math.toRadians(135));
-
+                .strafeTo(new Vector2d(-1,-19));
 
 
 
@@ -124,7 +114,7 @@ public class RedAuto extends AutoInit{
                         stopIntake(),
                         prepLauncherClose(),
                         traj7.build(),
-                        // startLauncher(),
+                       // startLauncher(),
                         launch(),
                         stopLauncher(),
                         lowerKickerAction(),
