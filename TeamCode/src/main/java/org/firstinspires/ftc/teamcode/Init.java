@@ -191,7 +191,7 @@ public abstract class Init extends LinearOpMode {
     protected void initActions(){
     }
 
-    protected void lowerKicker(){kickerServo.setPosition(0.41);}
+    protected void lowerKicker(){kickerServo.setPosition(0.45);}
     protected void raiseKicker(){kickerServo.setPosition(0.6);}
 
     protected void mediumKicker(){kickerServo.setPosition(0.5);}
@@ -215,9 +215,9 @@ public abstract class Init extends LinearOpMode {
         pinpointLocalizer.update();
         Pose2d robotPose = pinpointLocalizer.getPose();
 
-        Vector2d goalPos = new Vector2d(-60, -62.5);
+        Vector2d goalPos = new Vector2d(-64, -60);
         if(Team.get() == Team.RED){
-            goalPos = new Vector2d(-60, 62.5);
+            goalPos = new Vector2d(-64, 60);
         }
 
         double targetHeading = Math.atan2(goalPos.y-robotPose.position.y, goalPos.x-robotPose.position.x);

@@ -203,7 +203,7 @@ public class Drive extends Init{
             if (launchSequence){
                 now = clock.seconds()-start;
 
-                if (now>=1.8){
+                if (now>=3){
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
                     launchSequence = false;
