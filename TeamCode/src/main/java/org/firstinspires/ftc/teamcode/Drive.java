@@ -37,12 +37,7 @@ public class Drive extends Init{
     double now = clock.seconds();
 
     boolean launchSequence = false;
-    private Double alignmentPower;
-
-    public static double kP = 0.045;
-    public static double kI = 0d;
-    public static double kD = 0.0005;
-
+    private double alignmentPower;
 
     @Override
     public void setTeam(){
@@ -144,7 +139,6 @@ public class Drive extends Init{
             launcherController.gateMotor.setPower(gamepad2.left_stick_y);
 
             if(gamepad1.bWasPressed()){
-                goalAlignmentPID.setPID(kP, kI, kD);
                 goalAlignmentPID.reset(0);
             }
 
