@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.utilities.Team;
 
 
-@Autonomous(preselectTeleOp = "Drive")
+@Autonomous(preselectTeleOp = "RedDrive")
 public class RedAuto extends AutoInit{
     private TrajectoryActionBuilder traj1;
     private TrajectoryActionBuilder traj2;

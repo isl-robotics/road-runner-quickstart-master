@@ -214,6 +214,7 @@ public class Drive extends Init{
                 }
             }
 
+            /*
             telemetry.addData("Robot X (in)", robotPose.position.x);
             telemetry.addData("Robot Y (in)", robotPose.position.y);
             telemetry.addData("Encoder X (ticks)", pinpointComputer.getEncoderX());
@@ -228,6 +229,7 @@ public class Drive extends Init{
             dashboard.sendTelemetryPacket(telemetryPacket);
 
             telemetry.update();
+             */
             pause(0.02);
         }
     }

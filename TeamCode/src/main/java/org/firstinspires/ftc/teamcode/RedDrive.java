@@ -197,7 +197,7 @@ public class RedDrive extends Init{
             if (launchSequence){
                 now = clock.seconds()-start;
 
-                if (now>=1.8){
+                if (now>=3){
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
                     launchSequence = false;
@@ -213,7 +213,6 @@ public class RedDrive extends Init{
                     gateMotor.setPower(0.3);
                 }
             }
-
             telemetry.addData("Robot X (in)", robotPose.position.x);
             telemetry.addData("Robot Y (in)", robotPose.position.y);
             telemetry.addData("Encoder X (ticks)", pinpointComputer.getEncoderX());
