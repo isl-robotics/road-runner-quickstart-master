@@ -236,16 +236,17 @@ public abstract class Init extends LinearOpMode {
         telemetry.addData("Robot Y (in)", robotPose.position.y);
         telemetry.addData("Encoder X (ticks)", pinpointComputer.getEncoderX());
         telemetry.addData("Encoder Y (ticks)", pinpointComputer.getEncoderY());
-         */
         telemetry.addData("currentHeading", Math.toDegrees(robotPose.heading.toDouble()));
         telemetry.addData("targetHeading", Math.toDegrees(targetHeading));
         telemetry.addData("errorAngle", errorAngle);
+         */
 
-
+        /*
         Canvas c = telemetryPacket.fieldOverlay();
 
         c.setStroke("#4CAF50");
         Drawing.drawRobot(c, new Pose2d(robotPose.position, targetHeading));
+         */
 
         //c.setStroke("#3F51B5");
         //Drawing.drawRobot(c, robotPose);
