@@ -101,7 +101,7 @@ public class RedDrive extends Init{
                 if(Team.get() == Team.BLUE){
                     pinpointLocalizer.setPose(new Pose2d(61,  -14.5, Math.PI));
                 }else{
-                    pinpointLocalizer.setPose(new Pose2d(61,  14.5, Math.PI));
+                    pinpointLocalizer.setPose(new Pose2d(63.5,  15.75, Math.PI));
                 }
             }
 
@@ -177,7 +177,7 @@ public class RedDrive extends Init{
 
             if (gamepad2.right_bumper){
                 double goalDist = getGoalDist();
-                telemetry.addData("goalDist", goalDist);
+                //telemetry.addData("goalDist", goalDist);
                 if (goalDist<=380) {
                     launchAtDist(goalDist);
                 }else{

@@ -197,27 +197,13 @@ public abstract class Init extends LinearOpMode {
     protected void mediumKicker(){kickerServo.setPosition(0.5);}
 
     public Pair<Double, Boolean> alignToGoal(){
-        /*
-        Pair<Double, Double> distAndBearing = aprilTagDetector.getGoalDistAndBearing();
-        if (distAndBearing != null) {
-            double error = -distAndBearing.second-4d;
-            if(Math.abs(error)<1){
-                alignmentPower = 0;
-            }
-            alignmentPower = Range.clip(goalAlignmentPID.compute(error), -0.4, 0.4);
-            return new Pair<>(distAndBearing.second, goalAlignmentPID.isDone());
-        } else {
-            alignmentPower = 0;
-            return null;
-        }
-         */
 
         pinpointLocalizer.update();
         Pose2d robotPose = pinpointLocalizer.getPose();
 
         Vector2d goalPos = new Vector2d(-64, -60);
         if(Team.get() == Team.RED){
-            goalPos = new Vector2d(-64, 60);
+            goalPos = new Vector2d(-59.5, 62.5);
         }
 
         double targetHeading = Math.atan2(goalPos.y-robotPose.position.y, goalPos.x-robotPose.position.x);
@@ -262,7 +248,7 @@ public abstract class Init extends LinearOpMode {
 
         Vector2d goalPos = new Vector2d(-60, -55);
         if(Team.get() == Team.RED){
-            goalPos = new Vector2d(-60, 55);
+            goalPos = new Vector2d(-59.5, 62.5);
         }
         return 2.54*Math.sqrt(Math.pow(goalPos.y-robotPose.position.y, 2)+Math.pow(goalPos.x-robotPose.position.x, 2));
     }
