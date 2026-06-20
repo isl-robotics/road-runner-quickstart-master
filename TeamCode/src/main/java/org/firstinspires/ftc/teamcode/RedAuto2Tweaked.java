@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -12,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utilities.Team;
 
 
 @Autonomous(preselectTeleOp = "RedDrive")
-public class RedAuto extends AutoInit{
+public class RedAuto2Tweaked extends AutoInit{
     private TrajectoryActionBuilder traj1;
     private TrajectoryActionBuilder traj2;
     private TrajectoryActionBuilder traj3;
@@ -32,67 +31,69 @@ public class RedAuto extends AutoInit{
 
     @Override
     public void extraInit(){
-        Pose2d beginPose = new Pose2d(63.5,  -15.75, Math.PI);
+        Pose2d beginPose = new Pose2d(-52.15,  -48.25, -Math.toRadians(135));
         drive = new MecanumDrive(hardwareMap, beginPose);
 
         traj1 = drive.actionBuilder(beginPose)
-                .strafeToLinearHeading(new Vector2d(52, -13), -Math.toRadians(156))
-                .waitSeconds(0.5)
+                //    .strafeToConstantHeading(new Vector2d(mmToIn(-300), -20))
+           //     .strafeToLinearHeading(new Vector2d(mmToIn(-250), -15), -Math.toRadians(140));
+                .strafeToLinearHeading(new Vector2d(-10, -25), -Math.toRadians(140))
         ;
-
         traj2 = traj1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(920), -30),-Math.toRadians(90))
-        //      .splineToLinearHeading(new Pose2d(mmToIn(920), -30,-Math.toRadians(90)), -Math.toRadians(90))
-
+                //          .waitSeconds(0.3)
+                //      .strafeToLinearHeading(new Vector2d(mmToIn(-300), -55), -Math.toRadians(90), new TranslationalVelConstraint(25));
+                .strafeToLinearHeading(new Vector2d(mmToIn(-240), -30), -Math.toRadians(90));
         //  .waitSeconds(0.3)
-        ;
 
         traj3 = traj2.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(920),-63))
-        //       .waitSeconds(0.2)
+                //      .strafeToConstantHeading(new Vector2d(mmToIn(-200),-55),new TranslationalVelConstraint(25))
+                .strafeToConstantHeading(new Vector2d(mmToIn(-240),-55))
+        //   .waitSeconds(0.2)
         ;
-
         traj4 = traj3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(53, -13), -Math.toRadians(156))
-        //     .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(-10, -25), -Math.toRadians(140))
+        //        .waitSeconds(0.5)
         ;
 
         traj5 = traj4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(320), -30), -Math.toRadians(90))
-        //  .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
-        //    .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(mmToIn(380), -30), -Math.toRadians(90))
         //.waitSeconds(1)
         ;
 
         traj6 = traj5.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(320),-63))
-        //    .waitSeconds(0.2)
+                //    .strafeToConstantHeading(new Vector2d(mmToIn(-200),-55),new TranslationalVelConstraint(25))
+                .strafeToConstantHeading(new Vector2d(mmToIn(380),-63))
+                .strafeToConstantHeading(new Vector2d(mmToIn(380),-25))
+        //      .waitSeconds(0.2)
         ;
-
         traj7 = traj6.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(53, -13), -Math.toRadians(156))
-                .waitSeconds(0.2)
+                .strafeToLinearHeading(new Vector2d(-10, -25), -Math.toRadians(140))
+        //       .waitSeconds(0.5)
         ;
 
         traj8 = traj7.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(-330), -28), -Math.toRadians(90));
-        //   .strafeTo(new Vector2d(30, -20)) //CODE FOR LEAVING ZONE
-        //   .splineToLinearHeading(new Pose2d(mmToIn(-300), -38, -Math.toRadians(90)), -Math.toRadians(90));
+         //       .strafeToLinearHeading(new Vector2d(mmToIn(980), -25), -Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-1, -35), -Math.toRadians(135));
 
-        traj9 = traj8.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(mmToIn(-330),-55));
-
-        traj10 = traj9.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-5.15, -13.13), -Math.toRadians(138))
-        //       .waitSeconds(0.1)
         ;
+        traj9= traj8.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(mmToIn(980), -60), -Math.toRadians(90))
+        //     .splineToLinearHeading(new Pose2d(mmToIn(860), -50,-Math.toRadians(90)), -Math.toRadians(90), new TranslationalVelConstraint(25))
+        //    .waitSeconds(1)
+        ;
+        traj10 = traj9.endTrajectory().fresh()
+                //  .strafeToLinearHeading(new Vector2d(mmToIn(-250), -15), -Math.toRadians(140))
+             //   .strafeToLinearHeading(new Vector2d(-7, -16),-Math.toRadians(142))
+                .strafeToLinearHeading(new Vector2d(-10, -25), -Math.toRadians(140))
 
+        //      .waitSeconds(0.3)
+        ;
         traj11 = traj10.endTrajectory().fresh()
-             //   .strafeTo(new Vector2d(-1,-20));
-                .strafeToLinearHeading(new Vector2d(-1, -25), -Math.toRadians(135));
+                .strafeToLinearHeading(new Vector2d(-1, -29), -Math.toRadians(135));
+        //         .strafeTo(new Vector2d(-7,-18));
+        //   .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(160));
 
-
-
+        //  traj11 = traj10.endTrajectory().fresh()
 
     }
     @Override
@@ -100,20 +101,21 @@ public class RedAuto extends AutoInit{
         Actions.runBlocking(
                 new SequentialAction(
                         //PRE-LOADED BALLS
-                        prepLauncher(),
+                        prepLauncherClose(),
                         traj1.build(),
-                        //startLauncher(),
+                        //   startLauncher(),
                         launch(),
                         stopLauncher(),
                         //1ST ROW
                         traj2.build(),
+                        intake(),
                         intakeLauncher(),
                         lowerKickerAction(),
-                        intake(),
                         traj3.build(),
                         stopIntake(),
-                        prepLauncher(),
+                        prepLauncherClose(),
                         traj4.build(),
+                        //    startLauncher(),
                         launch(),
                         stopLauncher(),
                         //2ND ROW
@@ -124,24 +126,27 @@ public class RedAuto extends AutoInit{
                         stopIntake(),
                         prepLauncherClose(),
                         traj7.build(),
-                        // startLauncher(),
+                        //    startLauncher(),
                         launch(),
                         stopLauncher(),
-                        lowerKickerAction(),
                         //3RD ROW
                         traj8.build(),
+                        /*
                         intakeLauncher(),
+                        lowerKickerAction(),
                         intake(),
                         traj9.build(),
                         stopIntake(),
                         prepLauncherClose(),
                         traj10.build(),
-                        //startLauncher(),
+                        //    startLauncher(),
                         launch(),
                         //LEAVE TRIANGLE
                         traj11.build(),
+                         */
                         stopLauncher(),
                         stopIntake()
+
                 )
         );
     }

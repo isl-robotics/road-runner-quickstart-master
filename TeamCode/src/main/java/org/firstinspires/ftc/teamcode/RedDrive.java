@@ -201,11 +201,11 @@ public class RedDrive extends Init{
                     gateMotor.setPower(0);
                     intakeMotor.setPower(0);
                     launchSequence = false;
-                } else if (now>=0.8) {
+                } else if (now>=1.2) {
                     gateMotor.setPower(-1);
                     intakeMotor.setPower(1);
                     mediumKicker();
-                } else if (now >= 0.6) {
+                } else if (now >= 0.9) {
                     mediumKicker();
                     gateMotor.setPower(-1);
                 }else{

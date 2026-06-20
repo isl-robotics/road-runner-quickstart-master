@@ -3,14 +3,14 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
 @Autonomous(preselectTeleOp = "Drive")
-public class BlueAuto extends AutoInit{
+public class BlueAutoTweaked extends AutoInit{
+    private TrajectoryActionBuilder traj0;
     private TrajectoryActionBuilder traj1;
     private TrajectoryActionBuilder traj2;
     private TrajectoryActionBuilder traj3;
@@ -28,8 +28,11 @@ public class BlueAuto extends AutoInit{
         Pose2d beginPose = new Pose2d(61,  -14.5, Math.PI);
         drive = new MecanumDrive(hardwareMap, beginPose);
 
-        traj1 = drive.actionBuilder(beginPose)
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(156))
+        traj0 = drive.actionBuilder(beginPose)
+                .waitSeconds(0);
+
+        traj1 = traj0.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(157))
                 .waitSeconds(0.5)
             ;
 
@@ -46,16 +49,17 @@ public class BlueAuto extends AutoInit{
                 ;
 
         traj4 = traj3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(156))
+                .strafeToLinearHeading(new Vector2d(50, -15), -Math.toRadians(157))
            //     .waitSeconds(0.5)
                 ;
 
         traj5 = traj4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(300), -30), -Math.toRadians(90))
+              //  .strafeToLinearHeading(new Vector2d(mmToIn(300), -30), -Math.toRadians(90))
               //  .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
             //    .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
                 //.waitSeconds(1)
-                ;
+                .strafeToLinearHeading(new Vector2d(58, -14.5-26), Math.PI)
+        ;
 
         traj6 = traj5.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(mmToIn(300),-65))
@@ -91,6 +95,7 @@ public class BlueAuto extends AutoInit{
         Actions.runBlocking(
                 new SequentialAction(
                         //PRE-LOADED BALLS
+                        traj0.build(),
                         prepLauncher(),
                         traj1.build(),
                         //startLauncher(),
@@ -109,6 +114,7 @@ public class BlueAuto extends AutoInit{
                         stopLauncher(),
                         //2ND ROW
                         traj5.build(),
+                        /*
                         intakeLauncher(),
                         intake(),
                         traj6.build(),
@@ -131,6 +137,7 @@ public class BlueAuto extends AutoInit{
                         launch(),
                         //LEAVE TRIANGLE
                         traj11.build(),
+                         */
                         stopLauncher(),
                         stopIntake()
                 )

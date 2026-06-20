@@ -194,7 +194,7 @@ public abstract class Init extends LinearOpMode {
     protected void lowerKicker(){kickerServo.setPosition(0.45);}
     protected void raiseKicker(){kickerServo.setPosition(0.6);}
 
-    protected void mediumKicker(){kickerServo.setPosition(0.5);}
+    protected void mediumKicker(){kickerServo.setPosition(0.55);}
 
     public Pair<Double, Boolean> alignToGoal(){
 
@@ -246,7 +246,7 @@ public abstract class Init extends LinearOpMode {
         pinpointLocalizer.update();
         Pose2d robotPose = pinpointLocalizer.getPose();
 
-        Vector2d goalPos = new Vector2d(-60, -55);
+        Vector2d goalPos = new Vector2d(-64, -60);
         if(Team.get() == Team.RED){
             goalPos = new Vector2d(-59.5, 62.5);
         }
@@ -257,7 +257,7 @@ public abstract class Init extends LinearOpMode {
         //double speed = (6*0.00001)*Math.pow(tagDist, 3)-0.0501*Math.pow(tagDist, 2)+13.511*tagDist+405.1;
         double speed = launchingControlPoints.get(tagDist);
         speed = Math.round(speed/20)*20;  // Round to nearest 20
-        launcherController.setVelocity(speed);
+        launcherController.setVelocity(speed-20);
 /*
         double start = clock.seconds();
         double now = clock.seconds();
