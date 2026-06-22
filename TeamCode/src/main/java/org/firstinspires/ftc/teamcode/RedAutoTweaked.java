@@ -12,6 +12,8 @@ import org.firstinspires.ftc.teamcode.utilities.Team;
 
 @Autonomous(preselectTeleOp = "RedDrive")
 public class RedAutoTweaked extends AutoInit{
+
+    private TrajectoryActionBuilder traj0;
     private TrajectoryActionBuilder traj1;
     private TrajectoryActionBuilder traj2;
     private TrajectoryActionBuilder traj3;
@@ -33,8 +35,10 @@ public class RedAutoTweaked extends AutoInit{
     public void extraInit(){
         Pose2d beginPose = new Pose2d(63.5,  -15.75, Math.PI);
         drive = new MecanumDrive(hardwareMap, beginPose);
+        traj0 = drive.actionBuilder(beginPose)
+                .waitSeconds(13);
 
-        traj1 = drive.actionBuilder(beginPose)
+        traj1 = traj0.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(53, -13), -Math.toRadians(156))
                 .waitSeconds(0.5)
         ;
@@ -57,7 +61,8 @@ public class RedAutoTweaked extends AutoInit{
         ;
 
         traj5 = traj4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(mmToIn(320), -30), -Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(58, -14.5-26), Math.PI);
+        //     .strafeToLinearHeading(new Vector2d(mmToIn(320), -30), -Math.toRadians(90))
         //  .strafeToLinearHeading(new Vector2d(40, -20), -Math.toRadians(160))
         //    .splineToLinearHeading(new Pose2d(mmToIn(300), -38,-Math.toRadians(90)), -Math.toRadians(90))
         //.waitSeconds(1)
@@ -100,6 +105,7 @@ public class RedAutoTweaked extends AutoInit{
         Actions.runBlocking(
                 new SequentialAction(
                         //PRE-LOADED BALLS
+                        traj0.build(),
                         prepLauncher(),
                         traj1.build(),
                         //startLauncher(),
@@ -118,6 +124,7 @@ public class RedAutoTweaked extends AutoInit{
                         stopLauncher(),
                         //2ND ROW
                         traj5.build(),
+                        /*
                         intakeLauncher(),
                         intake(),
                         traj6.build(),
@@ -130,7 +137,6 @@ public class RedAutoTweaked extends AutoInit{
                         lowerKickerAction(),
                         //3RD ROW
                         traj8.build(),
-                        /*
                         intakeLauncher(),
                         intake(),
                         traj9.build(),
